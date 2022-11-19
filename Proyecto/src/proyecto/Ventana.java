@@ -14,5 +14,6 @@ public class Ventana extends JFrame{
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
+        
     }
 }
