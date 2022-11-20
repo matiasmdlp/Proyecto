@@ -11,6 +11,7 @@ public class Objetivo extends JPanel{
     private Image objetivo;
     private int x;
     static private int y;
+    private int vel=15;
     boolean dir=true;
     
     public Objetivo(){
@@ -45,7 +46,36 @@ public class Objetivo extends JPanel{
     }
     
     public void setDireccion(boolean b){
+        if(dir==true && b==false){
+            vel = (vel*-1);
+        }
+        if(dir==false && b==true){
+            vel = (vel*-1);
+        }
         dir=b;
+    }
+    
+    public void mover(){
+        if(dir==true){
+            x = x+vel;
+            if(x>=1200){
+                x = -100;
+            }
+        }
+        if(dir==false){
+            x = x-vel;
+            if(x<=-100){
+                x=1200;
+            }   
+        }
+        System.out.println(x+"");
+    }
+    
+    public void setVel(int v){
+        vel=v;
+    }
+    public int getVel(){
+        return vel;
     }
     
     private void doDrawing(Graphics g) {

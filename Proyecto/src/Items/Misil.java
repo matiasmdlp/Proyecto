@@ -7,14 +7,18 @@ public class Misil extends JPanel{
     private Image misil;
     private boolean v;
     private int x, y;
+    private int vel=0;
     boolean dir=true;
+    Avion av;
     
     public Misil(boolean v, Avion av){
         this.v = v;
+        this.av=av;
+        vel=av.getVel();
         
         loadImage();
-        x=av.getPosX()+40;
-        y=av.getPosY()+25;
+        setInitPos();
+        
         this.setOpaque(false);
     }
         
@@ -44,6 +48,32 @@ public class Misil extends JPanel{
     
     public void setDireccion(boolean b){
         dir=b;
+    }
+    
+    private void setInitPos(){
+        if(dir==true){
+            x=av.getPosX()+40;
+            y=av.getPosY()+25;
+        }else{
+            x=av.getPosX()+10;
+            y=av.getPosY()+25;
+        }
+    } 
+    
+    public void mover(){
+        if(dir==true){
+            x = x+vel;
+            if(x>=1240){
+                x = -60;
+            }
+        }
+        if(dir==false){
+            x = x-vel;
+            if(x<=-90){
+                x=1210;
+            }   
+        }
+        super.repaint();
     }
     
     private void doDrawing(Graphics g) {
