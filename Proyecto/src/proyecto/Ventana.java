@@ -1,36 +1,36 @@
 package proyecto;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.Timer;
 
 public class Ventana extends JFrame implements ActionListener{
-    private final PanelFondo fondo;
     private Timer timer, timer2;
-    
+    PanelFondo p;
+            
     public Ventana(){
         super();
-        this.setLayout(new BorderLayout());
-        this.setTitle("Lanzamiento de misil");
-        timer = new Timer(100,null);
+        p = new PanelFondo();
+        p.setBounds(0, 0, 1200, 650);
+        
+        timer = new Timer(100,null); 
         timer.addActionListener(this);
-        timer.start();
         timer2 = new Timer(100,null);
         timer2.addActionListener(this);
         
-        fondo = new PanelFondo();
-        this.getContentPane().add(fondo);
-                       
+        this.setBackground(Color.black);
+        this.add(p);
+        
+        this.setLayout(new BorderLayout());
+        this.setTitle("Proyecto");
+        this.setSize(1200, 900);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(1200, 800);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(true);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("*");
-    }
+        /*System.out.println("*");*/ 
+   }
 }
