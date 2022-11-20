@@ -2,15 +2,19 @@ package proyecto;
 
 import javax.swing.*;
 import java.awt.*;
+import Items.*;
 
 public class PanelFondo extends JPanel{
     private Image fondo;
+    Avion avion;
     
     public PanelFondo(){
         loadImage();
         setSurfaceSize();
         this.setBounds(0, 0, 1200, 650);
     }
+    
+    
     private void loadImage() {
         fondo = new ImageIcon("Imagenes/fondo.png").getImage();
     }
@@ -30,7 +34,6 @@ public class PanelFondo extends JPanel{
 
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         doDrawing(g);
     }
