@@ -7,13 +7,26 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+/** 
+ * Clase Objetivo, objetivo a destruir en la animación
+ * @author Matias Medina
+ * @author Joaquin Avalos 
+ * @version versión 1, 17 de noviembre de 2022
+ */
+
 public class Objetivo extends JPanel{
+    /** Image almacenar la imagen asociada al objetivo 
+     * int x, y para poder modificar la posicion del objetivo
+     * int vel guarda la constante de cambio (movimiento)
+     * boolean dir guarda direccion elegida (true=derecha, false=izquierda) 
+     */ 
     private Image objetivo;
     private int x;
     static private int y;
     private int vel=15;
     boolean dir=true;
     
+    /** Constructor, se inicializan valores por defecto*/
     public Objetivo(){
         
         loadImage();
@@ -22,6 +35,7 @@ public class Objetivo extends JPanel{
         this.setOpaque(false);
     }
     
+    /** Realiza la carga de imagen */
     private void loadImage() {
         if(dir==false){
             objetivo = new ImageIcon("Imagenes/AutoL.png").getImage();
@@ -31,20 +45,32 @@ public class Objetivo extends JPanel{
         }
     }
     
+    /** cambia la posicion en el eje X
+    * @param x1 int 
+    */
     public void CambiarX(int x1){
         x=x1;    
     }
     
+    /** cambia la posicion en el eje Y
+    * @param y1 int 
+    */
     public void CambiarY(int y1){    
     }
     
+    /**@return posicion actual en X */
     public int getPosX(){
         return x;
     }
+    
+    /**@return posicion actual en Y */
     public int getPosY(){
         return y;
     }
     
+    /** Cambia la dirección
+    * @param b boolean asociado a la direccion 
+    */
     public void setDireccion(boolean b){
         if(dir==true && b==false){
             vel = (vel*-1);
@@ -55,6 +81,7 @@ public class Objetivo extends JPanel{
         dir=b;
     }
     
+    /** Realiza el cambio de posicion*/
     public void mover(){
         if(dir==true){
             x = x+vel;
@@ -71,9 +98,12 @@ public class Objetivo extends JPanel{
         System.out.println(x+"");
     }
     
+    /** Cambiar la velocidad actual*/
     public void setVel(int v){
         vel=v;
     }
+    
+    /** @return velocidad*/
     public int getVel(){
         return vel;
     }

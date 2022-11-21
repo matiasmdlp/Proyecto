@@ -4,17 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import Items.*;
 
+/** 
+ * Clase PanelFondo generar un fondo para la animación
+ * @author Matias Medina
+ * @author Joaquin Avalos 
+ * @version versión 1, 19 de noviembre de 2022
+ */
 public class PanelFondo extends JPanel{
+    /** Image almacenar la imagen asociada al misil*/ 
     private Image fondo;
-    Avion avion;
     
+    /** Constructor, se inicializan valores por defecto*/
     public PanelFondo(){
         loadImage();
         setSurfaceSize();
         this.setBounds(0, 0, 1200, 650);
     }
     
-    
+    /** Realiza la carga de imagen */ 
     private void loadImage() {
         fondo = new ImageIcon("Imagenes/fondo.png").getImage();
     }

@@ -2,7 +2,12 @@ package Metodos;
 
 import java.awt.Point;
 import java.awt.Polygon;
-
+/** 
+ * Clase Angular, busca calcualr angulos desde la horizontal
+ * @author Matias Medina
+ * @author Joaquin Avalos 
+ * @version versión 1, 20 de noviembre de 2022
+ */
 public class Angular {
 
     /**
