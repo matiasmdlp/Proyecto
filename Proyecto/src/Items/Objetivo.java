@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 /** 
  * Clase Objetivo, objetivo a destruir en la animación
@@ -23,15 +24,14 @@ public class Objetivo extends JPanel{
     private Image objetivo;
     private int x;
     static private int y;
-    private int vel=15;
+    private int vel=5;
     boolean dir=true;
     
     /** Constructor, se inicializan valores por defecto*/
     public Objetivo(){
-        
         loadImage();
         x=0;
-        y=555;
+        y=580;
         this.setOpaque(false);
     }
     

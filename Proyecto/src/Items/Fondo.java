@@ -1,21 +1,18 @@
-package proyecto;
+package Items;
 
-import javax.swing.*;
-import java.awt.*;
-import Items.*;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-/** 
- * Clase PanelFondo generar un fondo para la animación
- * @author Matias Medina
- * @author Joaquin Avalos 
- * @version versión 1, 19 de noviembre de 2022
- */
-public class PanelFondo extends JPanel{
+public class Fondo extends JPanel{
     /** Image almacenar la imagen asociada al misil*/ 
     private Image fondo;
     
     /** Constructor, se inicializan valores por defecto*/
-    public PanelFondo(){
+    public Fondo(){
         loadImage();
         setSurfaceSize();
         this.setBounds(0, 0, 1200, 650);
@@ -44,4 +41,5 @@ public class PanelFondo extends JPanel{
         super.paintComponent(g);
         doDrawing(g);
     }
+    
 }
