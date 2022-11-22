@@ -1,7 +1,16 @@
 package proyecto;
 
+<<<<<<< Updated upstream
 
 import GUI.PanelBotonesss;
+=======
+<<<<<<< HEAD
+
+import GUI.PanelBotonesss;
+=======
+import GUI.VelSlider;
+>>>>>>> 731c9bde6038d815491fd0025f39a42ecf653a20
+>>>>>>> Stashed changes
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;

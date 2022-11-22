@@ -11,8 +11,8 @@ import javax.swing.JToggleButton;
 import proyecto.*;
 
 public class Botones {
-    private JButton UP, DOWN, RIGHT, LEFT, Boton, Start, Reset;
-    JToggleButton avion, objetivo;
+    private JButton UP, DOWN, RIGHT, LEFT, Boton, Reset;
+    JToggleButton avion, objetivo, Start;
     JSlider velocidad;
     Ventana panel;
     
@@ -69,7 +69,7 @@ public class Botones {
         Boton.setIcon(iconBoton);
         panel.add(Boton);
         
-        Start = new JButton("Start / Stop");
+        Start = new JToggleButton("Start / Stop");
         Start.setFont(new Font("Arial", Font.PLAIN, 20));
         Start.setBounds(1000, 670, 150, 70);
         Start.setForeground(Color.black);
