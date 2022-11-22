@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Font;
+import javax.swing.event.*;
 import javax.swing.JSlider;
 import proyecto.Ventana;
 
@@ -19,8 +20,15 @@ public class VelSlider{
         velocidad.setFont(new Font("Serif", Font.ITALIC, 12));
         
         velocidad.setPaintLabels(true);
+        velocidad.addChangeListener((ChangeEvent evt) -> {
+            BotonvelocidadActionPerformed(evt);
+        });
         
         v.add(velocidad);
+    }
+
+    private void BotonvelocidadActionPerformed(ChangeEvent evt) {
+        System.out.println("Velocidad: " + this.velocidad.getValue());
     }
 }
         
