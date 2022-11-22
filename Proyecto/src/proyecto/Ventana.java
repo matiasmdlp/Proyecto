@@ -1,5 +1,7 @@
 package proyecto;
 
+
+import GUI.PanelBotonesss;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class Ventana extends JFrame implements ActionListener{
     PanelPrincipal pp;
-    PanelBotones pb;
+    PanelBotonesss pb;
             
     public Ventana(){
         super();
@@ -25,7 +27,7 @@ public class Ventana extends JFrame implements ActionListener{
         pp.setBounds(0, 0, 1200, 650);
         this.add(pp);
         
-        pb = new PanelBotones(this);
+        pb = new PanelBotonesss();
         this.setBackground(Color.black);
         pb.setBounds(0, 650, 1200, 250);
         this.add(pb);
