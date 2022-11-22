@@ -1,5 +1,6 @@
 package proyecto;
 
+import GUI.VelSlider;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
