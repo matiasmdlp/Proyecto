@@ -22,7 +22,7 @@ public class Seleccion {
     }
     
     public void Derecha(){
-        if(cual==0){
+        if(cual==0 && objetivo.CualDireccion()==false){
             if(pp.Inicializado()==false){
                 objetivo.setDireccion(true);
                 objetivo.setInitPos();
@@ -40,7 +40,7 @@ public class Seleccion {
     }
     
     public void Izquierda(){
-        if(cual==0){
+        if(cual==0 && objetivo.CualDireccion()==true){
             if(pp.Inicializado()==false){
                 objetivo.setDireccion(false);
                 objetivo.setInitPos();

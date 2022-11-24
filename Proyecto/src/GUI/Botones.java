@@ -214,6 +214,7 @@ public class Botones {
     private void BotonAvionActionPerformed(ActionEvent evt) {
         objetivo.setSelected(false);
         selec.setCual(1);
+        
         System.out.println("Presiona AVION");
         
     }
