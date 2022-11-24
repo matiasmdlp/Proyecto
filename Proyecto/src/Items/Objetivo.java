@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /** 
@@ -28,6 +29,7 @@ public class Objetivo extends JPanel{
     static private int posy=580;
     private int vel=5;
     boolean dir=true;
+    public Rectangle solidArea;
     
     /** Constructor, se inicializan valores por defecto*/
     public Objetivo(){
@@ -35,6 +37,8 @@ public class Objetivo extends JPanel{
         x=0;
         y=580;
         this.setOpaque(false);
+        
+        solidArea = new Rectangle(this.getPosX(),this.getPosY(),30,30);
         
         setInitPos();
     }

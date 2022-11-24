@@ -18,10 +18,12 @@ public class Misil extends JPanel{
      */ 
     private Image misil;
     private boolean v, colision;
+    
     private int x, y;
     private int vel=0;
     boolean dir=true;
     Avion av;
+    public Rectangle solidArea;
     
     /** Constructor, se inicializan valores por defecto*/
     public Misil(Avion av){
@@ -34,6 +36,8 @@ public class Misil extends JPanel{
         setInitPos();
         
         this.setOpaque(false);
+        
+        solidArea = new Rectangle(this.getPosX(),this.getPosY(), 48, 48);
     }
     
     /** Realiza la carga de imagen */    

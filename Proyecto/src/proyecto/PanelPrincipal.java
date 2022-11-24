@@ -1,6 +1,7 @@
 package proyecto;
 
 import Items.*;
+import Metodos.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -10,10 +11,11 @@ public class PanelPrincipal extends JPanel implements ActionListener{
     public Timer timer;
     Fondo p;
     Avion avion;
-    Misil misil;
-    Objetivo car;
+    public Misil misil;
+    public Objetivo car;
     public boolean lanzamiento = false;
     public boolean inicializado=false;
+    DetectarColision dC = new DetectarColision(this);
     
     public PanelPrincipal(){
         super();
@@ -67,12 +69,17 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         avion.mover();
         
         misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
+        misil.solidArea.setBounds(misil.getPosX(), misil.getPosY(), misil.solidArea.width, misil.solidArea.height);
         misil.mover();
         
         p.repaint();
         
         car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
+        car.solidArea.setBounds(car.getPosX(), car.getPosY(), car.solidArea.width, car.solidArea.height);
         car.mover();
+        
+
+        dC.checkCollision(this);
         
         super.repaint();
         avion.repaint();
