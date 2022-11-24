@@ -15,9 +15,14 @@ public class Botones {
     JToggleButton avion, objetivo, Start;
     //JSlider velocidad;
     Ventana panel;
+    PanelPrincipal pp;
+    Seleccion selec;
     
-    public Botones(Ventana v){
+    public Botones(Ventana v, PanelPrincipal pp){
         panel = v;
+        this.pp=pp;
+        selec = new Seleccion(pp.getAvion(),pp.getObj(),pp.getMisil(), pp);
+        
         //Boton UP
         UP = new JButton();
         UP.setBounds(300, 660, 70, 70);
@@ -149,41 +154,73 @@ public class Botones {
         velocidad.setPaintTicks(true);
         velocidad.setPaintLabels(true);
         panel.add(velocidad);*/
+        
     }   
 
     private void BotonUPActionPerformed(ActionEvent evt) {
+        selec.Subir();
         System.out.println("Presiona UP");
     }
 
     private void BotonDOWNActionPerformed(ActionEvent evt) {
+        selec.Bajar();
         System.out.println("Presiona DOWN");
     }
 
     private void BotonRIGHTActionPerformed(ActionEvent evt) {
+        selec.Derecha();
         System.out.println("Presiona RIGHT");
     }
 
     private void BotonLEFTActionPerformed(ActionEvent evt) {
+        selec.Izquierda();
         System.out.println("Presiona LEFT");
     }
 
     private void BotonLaunchActionPerformed(ActionEvent evt) {
+        if(pp.timer.isRunning()==true){
+            pp.getMisil().Lanzamiento();
+        }
+        
         System.out.println("Presiona LAUNCH");
     }
 
     private void BotonStartActionPerformed(ActionEvent evt) {
+        if(pp.timer.isRunning()==false){
+            pp.timer.start();
+            pp.inicializado=true;
+        }else{
+            pp.timer.stop();
+        }
         System.out.println("Presiona START");
     }
 
     private void BotonResetActionPerformed(ActionEvent evt) {
+        pp.timer.restart();
+        pp.timer.stop();
+        pp.getAvion().ResetPos();
+        pp.getObj().ResetPos();
+        pp.getMisil().ResetPos();
+        pp.inicializado=false;
+        pp.lanzamiento=false;
+        objetivo.setSelected(false);
+        avion.setSelected(false);
+        selec.setCual(2);
+        
         System.out.println("Presiona RESET");
+        
     }
 
     private void BotonAvionActionPerformed(ActionEvent evt) {
+        objetivo.setSelected(false);
+        selec.setCual(1);
         System.out.println("Presiona AVION");
+        
     }
 
     private void BotonObjetivoActionPerformed(ActionEvent evt) {
+        avion.setSelected(false);
+        selec.setCual(0);
         System.out.println("Presiona OBJETIVO");
     }
 }

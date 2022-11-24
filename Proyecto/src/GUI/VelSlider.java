@@ -7,12 +7,15 @@ import proyecto.Ventana;
 
 public class VelSlider{
     JSlider velocidad;
+    Botones botones;
 
-    public VelSlider(Ventana v) {
-        velocidad = new JSlider(JSlider.HORIZONTAL, 0, 10, 1);
+    public VelSlider(Ventana v, Botones bot) {
+        botones = bot;
+        
+        velocidad = new JSlider(JSlider.HORIZONTAL, 0, 15, 1);
         velocidad.setBounds(500, 710, 250, 100);
         
-        velocidad.setMajorTickSpacing(10);
+        velocidad.setMajorTickSpacing(15);
         velocidad.setMinorTickSpacing(1);
         
         velocidad.setPaintTicks(true);
@@ -28,6 +31,7 @@ public class VelSlider{
     }
 
     private void BotonvelocidadActionPerformed(ChangeEvent evt) {
+        botones.selec.setVelocidad(this.velocidad.getValue());
         System.out.println("Velocidad: " + this.velocidad.getValue());
     }
 }

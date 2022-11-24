@@ -17,15 +17,16 @@ public class Misil extends JPanel{
      * boolean v utilizado para asociar su posicion a la del avion
      */ 
     private Image misil;
-    private boolean v;
+    private boolean v, colision;
     private int x, y;
     private int vel=0;
     boolean dir=true;
     Avion av;
     
     /** Constructor, se inicializan valores por defecto*/
-    public Misil(boolean v, Avion av){
-        this.v = v;
+    public Misil(Avion av){
+        v = false;
+        colision = false;
         this.av=av;
         vel=av.getVel();
         
@@ -49,14 +50,14 @@ public class Misil extends JPanel{
     * @param x1 int 
     */
     public void CambiarX(int x1){
-        x=x1;    
+        x = x + x1;    
     }
     
     /** cambia la posicion en el eje Y
     * @param y1 int 
     */
     public void CambiarY(int y1){
-        y=y1;    
+        y = y + y1;    
     }
     
     /**@return posicion actual en X */
@@ -69,39 +70,74 @@ public class Misil extends JPanel{
         return y;
     }
     
+    public void setVel(int v){
+        vel=v;
+    }
+    
+    public void Lanzamiento(){
+        v = true;
+    }
+    
     /** Cambia la dirección
     * @param b boolean asociado a la direccion 
     */
     public void setDireccion(boolean b){
         dir=b;
+        
+        if(dir==false){
+            misil = new ImageIcon("Imagenes/MisilL.png").getImage();
+            this.repaint();
+            
+        }else{
+            misil = new ImageIcon("Imagenes/MisilR.png").getImage();
+            this.repaint();
+        }
     }
     
     /** inicializa la posicion original*/
-    private void setInitPos(){
+    public void setInitPos(){
         if(dir==true){
-            x=av.getPosX()+40;
-            y=av.getPosY()+25;
+            x=40;
+            y=125;
         }else{
-            x=av.getPosX()+10;
-            y=av.getPosY()+25;
+            x=1090;
+            y=125;
         }
     } 
     
     /** Realiza el cambio de posicion*/
     public void mover(){
-        if(dir==true){
+        if(dir==true && colision==false){
             x = x+vel;
             if(x>=1240){
                 x = -60;
             }
         }
-        if(dir==false){
+        if(dir==false && colision==false){
             x = x-vel;
             if(x<=-90){
                 x=1210;
             }   
         }
+        if(v==true && this.getPosY()<=590){
+            y = y+2;
+            if(this.getPosY()>590){
+                colision=true;
+            }
+        }
         super.repaint();
+    }
+    
+    public void ResetPos(){
+        x=40;
+        y=125;
+        dir = true;
+        vel=10;
+        v=false;
+        colision=false;
+        
+        misil = new ImageIcon("Imagenes/MisilR.png").getImage();
+        this.repaint();
     }
     
     private void doDrawing(Graphics g) {

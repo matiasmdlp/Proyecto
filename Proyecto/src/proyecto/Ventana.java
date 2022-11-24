@@ -5,11 +5,13 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 public class Ventana extends JFrame implements ActionListener{
     PanelPrincipal pp;
     PanelBotones pb;
-            
+    public Timer timer2;
+    
     public Ventana(){
         super();
         setItems();
@@ -26,14 +28,19 @@ public class Ventana extends JFrame implements ActionListener{
         pp.setBounds(0, 0, 1200, 650);
         this.add(pp);
         
-        pb = new PanelBotones(this);
+        pb = new PanelBotones(this, pp);
         this.setBackground(Color.black);
         pb.setBounds(0, 650, 1200, 250);
         this.add(pb);
+        
+        timer2 = new Timer(30,null); 
+        timer2.addActionListener((ActionListener) this);
+        timer2.start();
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        /*System.out.println("*");*/  
+        pp.print();
    }
+    
 }

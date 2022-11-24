@@ -24,6 +24,8 @@ public class Objetivo extends JPanel{
     private Image objetivo;
     private int x;
     static private int y;
+    static private int posx=0;
+    static private int posy=580;
     private int vel=5;
     boolean dir=true;
     
@@ -33,6 +35,8 @@ public class Objetivo extends JPanel{
         x=0;
         y=580;
         this.setOpaque(false);
+        
+        setInitPos();
     }
     
     /** Realiza la carga de imagen */
@@ -68,6 +72,16 @@ public class Objetivo extends JPanel{
         return y;
     }
     
+    public void setInitPos(){
+        if(dir==true){
+            x=0;
+            y=580;
+        }else{
+            x=1080;
+            y=580;
+        }
+    }
+    
     /** Cambia la dirección
     * @param b boolean asociado a la direccion 
     */
@@ -79,6 +93,20 @@ public class Objetivo extends JPanel{
             vel = (vel*-1);
         }
         dir=b;
+        vel = (vel*-1);
+        
+        if(dir==false){
+            objetivo = new ImageIcon("Imagenes/AutoL.png").getImage();
+            this.repaint();
+            
+        }else{
+            objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
+            this.repaint();
+        }
+    }
+    
+    public boolean CualDireccion(){
+        return dir;
     }
     
     /** Realiza el cambio de posicion*/
@@ -95,17 +123,32 @@ public class Objetivo extends JPanel{
                 x=1200;
             }   
         }
-        System.out.println(x+"");
     }
     
     /** Cambiar la velocidad actual*/
     public void setVel(int v){
-        vel=v;
+        if(dir==true){
+            vel=v;
+        }
+        if(dir==false){
+            vel=-v;  
+        }
+        
     }
     
     /** @return velocidad*/
     public int getVel(){
         return vel;
+    }
+    
+    public void ResetPos(){
+        x=0;
+        y=580;
+        dir = true;
+        vel=5;
+        
+        objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
+        this.repaint();
     }
     
     private void doDrawing(Graphics g) {

@@ -6,12 +6,13 @@ import javax.swing.JPanel;
 
 public class PanelBotones extends JPanel{
     VelSlider vel;
+    Botones botones;
     
-    public PanelBotones(Ventana v){
+    public PanelBotones(Ventana v, PanelPrincipal pp){
         super();
-        new Botones(v); 
+        botones = new Botones(v, pp); 
         
-        vel = new VelSlider(v);
+        vel = new VelSlider(v, botones);
     }
     
 }

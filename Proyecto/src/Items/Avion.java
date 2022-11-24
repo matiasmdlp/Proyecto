@@ -43,14 +43,14 @@ public class Avion extends JPanel{
     * @param x1 int 
     */
     public void CambiarX(int x1){
-        x=x1;    
+        x = x + x1;    
     }
     
     /** cambia la posicion en el eje Y
     * @param y1 int 
     */
     public void CambiarY(int y1){
-        y=y1;    
+        y = y + y1;    
     }
     
     /**@return posicion actual en X */
@@ -68,10 +68,18 @@ public class Avion extends JPanel{
     */
     public void setDireccion(boolean b){
         dir=b;
+        
+        if(dir==false){
+            avion = new ImageIcon("Imagenes/AvionL.png").getImage();
+            this.repaint();
+        }else{
+            avion = new ImageIcon("Imagenes/AvionR.png").getImage();
+            this.repaint();
+        }
     }
     
     /** inicializa la posicion original*/
-    private void setInitPos(){
+    public void setInitPos(){
         if(dir==true){
             x=0;
             y=100;
@@ -103,6 +111,16 @@ public class Avion extends JPanel{
     }
     public int getVel(){
         return vel;
+    }
+    
+    public void ResetPos(){
+        x=0;
+        y=100;
+        dir = true;
+        vel=10;
+        
+        avion = new ImageIcon("Imagenes/AvionR.png").getImage();
+        this.repaint();
     }
 
     private void doDrawing(Graphics g) {
