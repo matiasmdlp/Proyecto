@@ -16,6 +16,8 @@ public class PanelPrincipal extends JPanel implements ActionListener{
     public boolean lanzamiento = false;
     public boolean inicializado=false;
     DetectarColision dC = new DetectarColision(this);
+    PerseguirObjetivo po = new PerseguirObjetivo(this);
+    public boolean colision;
     
     public PanelPrincipal(){
         super();
@@ -70,16 +72,23 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         
         misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
         misil.solidArea.setBounds(misil.getPosX(), misil.getPosY(), misil.solidArea.width, misil.solidArea.height);
-        misil.mover();
+
         
         p.repaint();
         
         car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
         car.solidArea.setBounds(car.getPosX(), car.getPosY(), car.solidArea.width, car.solidArea.height);
-        car.mover();
-        
 
-        dC.checkCollision(this);
+        
+        colision = dC.checkCollision(this);
+        
+        if(colision == false){
+            misil.mover();
+            car.mover();
+        } else {
+            po.getDirection();
+            car.mover();
+        }
         
         super.repaint();
         avion.repaint();

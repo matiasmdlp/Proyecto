@@ -37,7 +37,7 @@ public class Misil extends JPanel{
         
         this.setOpaque(false);
         
-        solidArea = new Rectangle(this.getPosX(),this.getPosY(), 48, 48);
+        solidArea = new Rectangle(this.getPosX(),this.getPosY(), 100, 100);
     }
     
     /** Realiza la carga de imagen */    
@@ -76,6 +76,10 @@ public class Misil extends JPanel{
     
     public void setVel(int v){
         vel=v;
+    }
+    
+    public int getVel(){
+        return vel;
     }
     
     public void Lanzamiento(){
@@ -131,6 +135,7 @@ public class Misil extends JPanel{
         }
         super.repaint();
     }
+    
     
     public void ResetPos(){
         x=40;

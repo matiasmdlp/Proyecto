@@ -63,7 +63,8 @@ public class Objetivo extends JPanel{
     /** cambia la posicion en el eje Y
     * @param y1 int 
     */
-    public void CambiarY(int y1){    
+    public void CambiarY(int y1){
+        y = y1;
     }
     
     /**@return posicion actual en X */
