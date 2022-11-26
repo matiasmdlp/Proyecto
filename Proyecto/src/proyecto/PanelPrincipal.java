@@ -85,6 +85,10 @@ public class PanelPrincipal extends JPanel implements ActionListener{
             misil.mover2();
         }
         
+        if(misil.colision==true){
+            timer.stop();
+        }
+        
         p.repaint();
         
         super.repaint();

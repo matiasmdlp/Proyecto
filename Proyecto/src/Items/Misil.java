@@ -17,8 +17,8 @@ public class Misil extends JPanel{
      * boolean v utilizado para asociar su posicion a la del avion
      */ 
     private Image misil;
-    private boolean v, colision, cardir;
-    public boolean detected, colision2;
+    private boolean v, cardir;
+    public boolean detected, colision, colision2;
     private int x, y;
     private int vel=0;
     boolean dir=true;
