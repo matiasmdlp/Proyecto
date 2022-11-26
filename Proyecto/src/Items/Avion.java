@@ -50,7 +50,15 @@ public class Avion extends JPanel{
     * @param y1 int 
     */
     public void CambiarY(int y1){
-        y = y + y1;    
+        if(y>10 && y<300){
+            y = y + y1;    
+        }
+        if(y<=10){
+            y = y+10;
+        }
+        if(y>=300){
+            y = y-10;
+        }
     }
     
     /**@return posicion actual en X */

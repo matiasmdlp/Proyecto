@@ -17,19 +17,24 @@ public class Misil extends JPanel{
      * boolean v utilizado para asociar su posicion a la del avion
      */ 
     private Image misil;
-    private boolean v, colision;
-    
+    private boolean v, colision, cardir;
+    public boolean detected, colision2;
     private int x, y;
     private int vel=0;
     boolean dir=true;
     Avion av;
-    public Rectangle persecutionArea;
-    public Rectangle solidArea;
+    Objetivo car;
+    public int x1=-1000;
+    public int x2=-1000;
     
     /** Constructor, se inicializan valores por defecto*/
-    public Misil(Avion av){
+    public Misil(Avion av, Objetivo obj){
         v = false;
+        car=obj;
+        cardir = car.dir;
         colision = false;
+        colision2 = false;
+        detected=false;
         this.av=av;
         vel=av.getVel();
         
@@ -37,9 +42,6 @@ public class Misil extends JPanel{
         setInitPos();
         
         this.setOpaque(false);
-        
-        persecutionArea = new Rectangle(this.getPosX(),this.getPosY(), 200, 200);
-        solidArea = new Rectangle(this.getPosX(), this.getPosY(), 30,30);
     }
     
     /** Realiza la carga de imagen */    
@@ -63,7 +65,15 @@ public class Misil extends JPanel{
     * @param y1 int 
     */
     public void CambiarY(int y1){
-        y = y + y1;    
+        if(y>35 && y<325){
+            y = y + y1;    
+        }
+        if(y<=35){
+            y = y+10;
+        }
+        if(y>=325){
+            y = y-10;
+        }
     }
     
     /**@return posicion actual en X */
@@ -78,10 +88,6 @@ public class Misil extends JPanel{
     
     public void setVel(int v){
         vel=v;
-    }
-    
-    public int getVel(){
-        return vel;
     }
     
     public void Lanzamiento(){
@@ -138,6 +144,27 @@ public class Misil extends JPanel{
         super.repaint();
     }
     
+    public void mover2(){
+        if(dir==true && colision==false){
+            x = x+vel;
+            if(x>=1240){
+                x = -60;
+            }
+        }
+        if(dir==false && colision==false){
+            x = x-vel;
+            if(x<=-90){
+                x=1210;
+            }   
+        }
+        if(v==true && this.getPosY()<=590){
+            y = y+4;
+            if(this.getPosY()>590){
+                colision=true;
+            }
+        }
+        super.repaint();
+    }
     
     public void ResetPos(){
         x=40;
@@ -149,6 +176,53 @@ public class Misil extends JPanel{
         
         misil = new ImageIcon("Imagenes/MisilR.png").getImage();
         this.repaint();
+    }
+    
+    public void Deteccion(){
+        int dif = 590-(this.getPosY()+50);
+        
+        if(dir==true){
+            x1 = this.getPosX()+50;
+            x2 = this.getPosX()+350;
+        }
+        
+        if(dir==false){
+            x2 = this.getPosX();
+            x1 = this.getPosX()-300;
+        }
+        
+        if((car.getX()>x1 && car.getX()<x2 && dif<=250)||(car.getX()+100>x1 && car.getX()+100<x2 && dif<=250)){
+            detected=true;
+            cardir=car.dir;
+            System.out.println("Detectado");
+        }
+    }
+    
+    public void NoDeteccion(){     
+        if(car.getX()+100<x1 && detected==true){
+            dir=false;
+            misil = new ImageIcon("Imagenes/MisilL.png").getImage();
+            detected=false;
+            System.out.println("No Detectado");
+        }
+        
+        if(car.getX()>x2 && detected==true){
+            dir=true;
+            misil = new ImageIcon("Imagenes/MisilR.png").getImage();
+            detected=false;
+            System.out.println("No Detectado");
+        }
+    }
+    
+    public void ColisionCar(){
+        if(this.getY()>=570 && dir==true && (this.getX()+45>car.getX()+10) && (this.getX()+45)<car.getX()+90){
+            colision2=true;
+            misil = new ImageIcon("Imagenes/Explosion.gif").getImage();
+        }
+        if(this.getY()>=570 && dir==false && (this.getX()+5>car.getX()+10) && (this.getX()+5<car.getX()+90)){
+            colision2=true;
+            misil = new ImageIcon("Imagenes/Explosion.gif").getImage();
+        }
     }
     
     private void doDrawing(Graphics g) {

@@ -11,7 +11,7 @@ import javax.swing.JToggleButton;
 import proyecto.*;
 
 public class Botones {
-    private JButton UP, DOWN, RIGHT, LEFT, BotonLaunch, Reset;
+    private JButton UP, DOWN, RIGHT, LEFT, BotonLaunch, Reset, Random;
     JToggleButton avion, objetivo, Start;
     //JSlider velocidad;
     Ventana panel;
@@ -77,6 +77,17 @@ public class Botones {
             BotonLEFTActionPerformed(evt);
         });
         panel.add(LEFT);
+        
+        Random = new JButton("RandomCar");
+        Random.setBounds(580, 680, 100, 70);
+        Random.setForeground(Color.black);
+        Random.setOpaque(true);
+        Random.setContentAreaFilled(true);
+        Random.setFont(new Font("Arial", Font.PLAIN, 12));
+        Random.addActionListener((ActionEvent evt) -> {
+            BotonRandomActionPerformed(evt);
+        });
+        panel.add(Random);
         
         BotonLaunch = new JButton();
         BotonLaunch.setBounds(800, 670, 150, 150);
@@ -176,6 +187,10 @@ public class Botones {
         selec.Izquierda();
         System.out.println("Presiona LEFT");
     }
+    
+    private void BotonRandomActionPerformed(ActionEvent evt) {
+        pp.car.ValoresRandom();
+    }
 
     private void BotonLaunchActionPerformed(ActionEvent evt) {
         if(pp.timer.isRunning()==true){
@@ -201,6 +216,8 @@ public class Botones {
         pp.getAvion().ResetPos();
         pp.getObj().ResetPos();
         pp.getMisil().ResetPos();
+        pp.getMisil().colision2=false;
+        pp.getMisil().detected=false;
         pp.inicializado=false;
         pp.lanzamiento=false;
         objetivo.setSelected(false);

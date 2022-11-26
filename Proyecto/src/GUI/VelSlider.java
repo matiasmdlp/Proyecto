@@ -13,7 +13,7 @@ public class VelSlider{
         botones = bot;
         
         velocidad = new JSlider(JSlider.HORIZONTAL, 0, 15, 1);
-        velocidad.setBounds(500, 710, 250, 100);
+        velocidad.setBounds(500, 760, 250, 100); //y=710
         
         velocidad.setMajorTickSpacing(15);
         velocidad.setMinorTickSpacing(1);

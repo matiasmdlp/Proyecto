@@ -6,8 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.*;
 
 /** 
  * Clase Objetivo, objetivo a destruir en la animación
@@ -29,7 +29,6 @@ public class Objetivo extends JPanel{
     static private int posy=580;
     private int vel=5;
     boolean dir=true;
-    public Rectangle solidArea;
     
     /** Constructor, se inicializan valores por defecto*/
     public Objetivo(){
@@ -37,8 +36,6 @@ public class Objetivo extends JPanel{
         x=0;
         y=580;
         this.setOpaque(false);
-        
-        solidArea = new Rectangle(this.getPosX(),this.getPosY(),30,50);
         
         setInitPos();
     }
@@ -63,8 +60,7 @@ public class Objetivo extends JPanel{
     /** cambia la posicion en el eje Y
     * @param y1 int 
     */
-    public void CambiarY(int y1){
-        y = y1;
+    public void CambiarY(int y1){    
     }
     
     /**@return posicion actual en X */
@@ -154,6 +150,24 @@ public class Objetivo extends JPanel{
         
         objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
         this.repaint();
+    }
+    
+    public void ValoresRandom(){
+        int numero = (int)(Math.random()*(10-1+1)+1);
+        vel=numero;
+        Random randomno = new Random();
+        boolean value = randomno.nextBoolean();
+        dir=value;
+        if(dir==true){
+            x=0;
+            y=580;
+            objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
+        }else{
+            x=1080;
+            y=580;
+            objetivo = new ImageIcon("Imagenes/AutoL.png").getImage();
+        }
+        System.out.println(dir+" "+numero);
     }
     
     private void doDrawing(Graphics g) {
