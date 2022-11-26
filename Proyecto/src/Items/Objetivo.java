@@ -38,7 +38,7 @@ public class Objetivo extends JPanel{
         y=580;
         this.setOpaque(false);
         
-        solidArea = new Rectangle(this.getPosX(),this.getPosY(),30,30);
+        solidArea = new Rectangle(this.getPosX(),this.getPosY(),30,50);
         
         setInitPos();
     }

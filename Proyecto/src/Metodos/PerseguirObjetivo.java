@@ -31,14 +31,18 @@ public class PerseguirObjetivo {
         nx += vdx;
         ny += vdy;
         
-        pp.misil.CambiarX((int) nx);
-        pp.misil.CambiarY((int) ny);
-        /*if(pp.misil.getPosY() > 590){
-            pp.misil.CambiarY(590);
-        } else {
-            pp.misil.CambiarY((int) ny);
+        if (pp.misil.getPosX() + nx < 1240) {
+            pp.misil.CambiarX((int) nx /* + vel*/); 
         }
-*/
+        if(pp.misil.getPosX() + nx > -90){
+            pp.misil.CambiarX((int) nx /* - vel*/); 
+        }        
+       
+        
+        if(pp.misil.getPosY() + ny <= 590){
+            pp.misil.CambiarY((int) ny);
+            
+        }
     }
     
     

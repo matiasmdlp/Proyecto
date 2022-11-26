@@ -23,6 +23,7 @@ public class Misil extends JPanel{
     private int vel=0;
     boolean dir=true;
     Avion av;
+    public Rectangle persecutionArea;
     public Rectangle solidArea;
     
     /** Constructor, se inicializan valores por defecto*/
@@ -37,7 +38,8 @@ public class Misil extends JPanel{
         
         this.setOpaque(false);
         
-        solidArea = new Rectangle(this.getPosX(),this.getPosY(), 100, 100);
+        persecutionArea = new Rectangle(this.getPosX(),this.getPosY(), 200, 200);
+        solidArea = new Rectangle(this.getPosX(), this.getPosY(), 30,30);
     }
     
     /** Realiza la carga de imagen */    

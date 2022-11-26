@@ -17,7 +17,7 @@ public class PanelPrincipal extends JPanel implements ActionListener{
     public boolean inicializado=false;
     DetectarColision dC = new DetectarColision(this);
     PerseguirObjetivo po = new PerseguirObjetivo(this);
-    public boolean colision;
+    public int colision;
     
     public PanelPrincipal(){
         super();
@@ -69,27 +69,43 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         /*System.out.println("*");*/ 
         avion.setBounds(avion.getPosX(), avion.getPosY(), 100, 50);
         avion.mover();
-        
-        misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
-        misil.solidArea.setBounds(misil.getPosX(), misil.getPosY(), misil.solidArea.width, misil.solidArea.height);
+
 
         
         p.repaint();
-        
-        car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
-        car.solidArea.setBounds(car.getPosX(), car.getPosY(), car.solidArea.width, car.solidArea.height);
+
 
         
         colision = dC.checkCollision(this);
-        
-        if(colision == false){
+ 
+        if (colision == 0) {
+            misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
+            misil.solidArea.setBounds(misil.getPosX(), misil.getPosY(), misil.solidArea.width, misil.solidArea.height);
+            misil.persecutionArea.setBounds(misil.getPosX(), misil.getPosY(), misil.persecutionArea.width, misil.persecutionArea.height);
             misil.mover();
-            car.mover();
-        } else {
-            po.getDirection();
+
+            car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
+            car.solidArea.setBounds(car.getPosX(), car.getPosY(), car.solidArea.width, car.solidArea.height);
             car.mover();
         }
-        
+        if (colision == 1) {
+            misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
+            misil.solidArea.setBounds(misil.getPosX(), misil.getPosY(), misil.solidArea.width, misil.solidArea.height);
+            misil.persecutionArea.setBounds(misil.getPosX(), misil.getPosY(), misil.persecutionArea.width, misil.persecutionArea.height);
+            po.getDirection();
+            car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
+            car.solidArea.setBounds(car.getPosX(), car.getPosY(), car.solidArea.width, car.solidArea.height);
+            car.mover();
+        } if(colision == 2) {
+            //colision == 2, misil queda "pegado a car" 
+            misil.setBounds(car.getPosX(), car.getPosY(), 50, 50);
+            misil.solidArea.setBounds(car.getPosX(), car.getPosY(), misil.solidArea.width, misil.solidArea.height);
+            misil.persecutionArea.setBounds(car.getPosX(), car.getPosY(), misil.persecutionArea.width, misil.persecutionArea.height);
+            car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
+            car.solidArea.setBounds(car.getPosX(), car.getPosY(), car.solidArea.width, car.solidArea.height);
+            car.mover();
+        }
+
         super.repaint();
         avion.repaint();
         misil.repaint();
