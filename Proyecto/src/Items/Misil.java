@@ -158,7 +158,7 @@ public class Misil extends JPanel{
             }   
         }
         if(v==true && this.getPosY()<=590){
-            y = y+4;
+            y = y+3;
             if(this.getPosY()>590){
                 colision=true;
             }
@@ -199,14 +199,14 @@ public class Misil extends JPanel{
     }
     
     public void NoDeteccion(){     
-        if(car.getX()+100<x1 && detected==true){
+        if(car.getX()+100<x1 && car.getX()+100<x1-150 && detected==true){
             dir=false;
             misil = new ImageIcon("Imagenes/MisilL.png").getImage();
             detected=false;
             System.out.println("No Detectado");
         }
         
-        if(car.getX()>x2 && detected==true){
+        if(car.getX()>x2 && car.getX()<x2+150 && detected==true){
             dir=true;
             misil = new ImageIcon("Imagenes/MisilR.png").getImage();
             detected=false;
