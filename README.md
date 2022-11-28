@@ -17,14 +17,17 @@
 ## cosas que no sabemos como hacer
 
 - [ ] Rotar una imagen una cantidad X de grados. 
-- [ ] Realizar la deteccion del objeto y el seguimiento 
-- [ ] Personalizacion del proyecto
-- [ ] Menu
+- [X] Realizar la deteccion del objeto y el seguimiento 
+- [X] Personalizacion del proyecto
 
+## Patrones Utilizados
+
+Hemos decidido utilizar un Patron Proxy, Para la implementación de los botones de control.
+Si bien, el objetivo debe tener una velocidad y dirección aleatoria, hemos puesto también la opción de controlar su dirección y velocidad de forma manual, mediante los mismo controles GUI que controlan la posición, dirección y velocidad del avión y misil. También es posible controlar la dirección del objetivo durante la animación.
 
 ## Casos de Uso
  ![Casos de uso](https://user-images.githubusercontent.com/56138987/203075962-a63e4299-6a54-448e-a240-829b33c2217e.png)
  
-## Idea Prototipo (a seguir)
-  ![Prototipo](https://user-images.githubusercontent.com/56138987/203078116-25472ae0-9e4d-4065-a8ff-dabef6f1713f.png)
+## Intefaz
+![Interfaz](https://user-images.githubusercontent.com/56138987/204390488-ffe379d0-159e-45ce-9f0d-80c6484c6ee2.png)
 
