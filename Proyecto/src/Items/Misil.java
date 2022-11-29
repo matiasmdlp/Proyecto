@@ -206,8 +206,10 @@ public class Misil extends JPanel{
             System.out.println("Detectado");
         }
         
-        if(detected==true){
-            float angulo = Angular.anguloPI(this.getLocation(),car.getLocation());
+        if(detected==true && colision==false && colision2==false){
+            float angulo = Angular.anguloPI(car.getLocation(),this.getLocation());
+            angulo = (angulo*180)/(float)Math.PI;
+            System.out.println(angulo+"");
             Rotar((double) angulo);
         }
     }
@@ -276,13 +278,13 @@ public class Misil extends JPanel{
     
     public void Rotar(Double degrees){
         try {
-            BufferedImage original = ImageIO.read(new File("\\Imagenes\\MisilR.png"));
+            BufferedImage original = ImageIO.read(new File("Imagenes/MisilR.png"));
             BufferedImage rotated = rotate(original, degrees);
             
             misil = new ImageIcon(rotated).getImage();
             this.repaint();
             
-            JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);
+            /*JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);*/
         } catch (IOException ex) {
             ex.printStackTrace();
         }
