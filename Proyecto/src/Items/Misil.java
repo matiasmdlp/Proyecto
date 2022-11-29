@@ -2,6 +2,11 @@ package Items;
 
 import java.awt.*;
 import javax.swing.*;
+import Metodos.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /** 
  * Clase Misil el objeto lanzado
@@ -24,8 +29,10 @@ public class Misil extends JPanel{
     boolean dir=true;
     Avion av;
     Objetivo car;
+    Angular angular;
     public int x1=-1000;
     public int x2=-1000;
+    private double distancia;
     
     /** Constructor, se inicializan valores por defecto*/
     public Misil(Avion av, Objetivo obj){
@@ -180,6 +187,7 @@ public class Misil extends JPanel{
     
     public void Deteccion(){
         int dif = 590-(this.getPosY()+50);
+        distancia = Angular.distEntre2Puntos(this.getPosX(), this.getPosY(), car.getPosX(), car.getPosY());
         
         if(dir==true){
             x1 = this.getPosX()+50;
@@ -191,24 +199,31 @@ public class Misil extends JPanel{
             x1 = this.getPosX()-300;
         }
         
-        if((car.getX()>x1 && car.getX()<x2 && dif<=250)||(car.getX()+100>x1 && car.getX()+100<x2 && dif<=250)){
+        if((car.getX()>x1 && car.getX()<x2 && dif<=250)||(car.getX()+100>x1 && car.getX()+100<x2 && dif<=250 && distancia<500)){
             detected=true;
             cardir=car.dir;
             System.out.println("Detectado");
         }
+        
+        if(detected==true){
+            float angulo = Angular.anguloPI(this.getLocation(),car.getLocation());
+            Rotar((double) angulo);
+        }
     }
     
     public void NoDeteccion(){     
-        if(car.getX()+100<x1 && car.getX()+100<x1-150 && detected==true){
+        double distancia = Angular.distEntre2Puntos(this.getX(), this.getPosY(), car.getX(), car.getY());
+        
+        if(car.getX()+100<x1 && detected==true && car.getX()>0 && car.getX()<1200 && distancia<500){
             dir=false;
-            misil = new ImageIcon("Imagenes/MisilL.png").getImage();
+            /*misil = new ImageIcon("Imagenes/MisilL.png").getImage();*/
             detected=false;
             System.out.println("No Detectado");
         }
         
-        if(car.getX()>x2 && car.getX()<x2+150 && detected==true){
+        if(car.getX()>x2 && detected==true && car.getX()>0 && car.getX()<1200 && distancia<500){
             dir=true;
-            misil = new ImageIcon("Imagenes/MisilR.png").getImage();
+            /*misil = new ImageIcon("Imagenes/MisilR.png").getImage();*/
             detected=false;
             System.out.println("No Detectado");
         }
@@ -235,5 +250,44 @@ public class Misil extends JPanel{
 
         super.paintComponent(g);
         doDrawing(g);
+    }
+    
+    
+    public BufferedImage rotate(BufferedImage image, Double degrees) {
+        // Calculate the new size of the image based on the angle of rotaion
+        double radians = Math.toRadians(degrees);
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+        int newWidth = (int) Math.round(image.getWidth() * cos + image.getHeight() * sin);
+        int newHeight = (int) Math.round(image.getWidth() * sin + image.getHeight() * cos);
+
+        // Create a new image
+        BufferedImage rotate = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotate.createGraphics();
+        // Calculate the "anchor" point around which the image will be rotated
+        int x = (newWidth - image.getWidth()) / 2;
+        int y = (newHeight - image.getHeight()) / 2;
+        // Transform the origin point around the anchor point
+        AffineTransform at = new AffineTransform();
+        at.setToRotation(radians, x + (image.getWidth() / 2), y + (image.getHeight() / 2));
+        at.translate(x, y);
+        g2d.setTransform(at);
+        // Paint the originl image
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+        return rotate;
+    }
+    
+    public void Rotar(Double degrees){
+        try {
+            BufferedImage original = ImageIO.read(getClass().getResource("Imagenes//MisilR.png"));
+            BufferedImage rotated = rotate(original, degrees);
+            
+            misil = new ImageIcon(rotated).getImage();
+
+            JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }

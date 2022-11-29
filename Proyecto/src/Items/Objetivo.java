@@ -153,7 +153,7 @@ public class Objetivo extends JPanel{
     }
     
     public void ValoresRandom(){
-        int numero = (int)(Math.random()*(10-1+1)+1);
+        int numero = (int)(Math.random()*(12-4+1)+4);
         vel=numero;
         Random randomno = new Random();
         boolean value = randomno.nextBoolean();

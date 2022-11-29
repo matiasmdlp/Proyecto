@@ -220,6 +220,7 @@ public class Botones {
         pp.getMisil().detected=false;
         pp.inicializado=false;
         pp.lanzamiento=false;
+        pp.car.ValoresRandom();
         objetivo.setSelected(false);
         avion.setSelected(false);
         selec.setCual(2);

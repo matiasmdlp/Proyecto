@@ -24,6 +24,7 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         if(timer.isRunning()==true){
             Init();
         }
+        car.ValoresRandom();
     }
     
     
