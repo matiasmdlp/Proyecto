@@ -207,8 +207,12 @@ public class Misil extends JPanel{
         }
         
         if(detected==true && colision==false && colision2==false){
-            float angulo = Angular.anguloPI(car.getLocation(),this.getLocation());
-            angulo = (angulo*180)/(float)Math.PI;
+            float angulo = Angular.anguloPI(this.getLocation(),car.getLocation());
+            if(dir==true){
+                angulo = -((angulo*180)/(float)Math.PI);
+            }else{
+                angulo = (angulo*180)/(float)Math.PI;
+            }
             System.out.println(angulo+"");
             Rotar((double) angulo);
         }
@@ -222,6 +226,10 @@ public class Misil extends JPanel{
             /*misil = new ImageIcon("Imagenes/MisilL.png").getImage();*/
             detected=false;
             System.out.println("No Detectado");
+            if(this.getPosX()<(car.getPosX()+100) && car.getPosX()<(this.getPosX()+50)){
+                detected=true;
+                System.out.println("Detectado");
+            }
         }
         
         if(car.getX()>x2 && detected==true && car.getX()>0 && car.getX()<1200 && distancia<500){
@@ -229,6 +237,10 @@ public class Misil extends JPanel{
             /*misil = new ImageIcon("Imagenes/MisilR.png").getImage();*/
             detected=false;
             System.out.println("No Detectado");
+            if(this.getPosX()<(car.getPosX()+100) && car.getPosX()<(this.getPosX()+50)){
+                detected=true;
+                System.out.println("Detectado");
+            }
         }
     }
     
@@ -277,16 +289,31 @@ public class Misil extends JPanel{
     }
     
     public void Rotar(Double degrees){
-        try {
-            BufferedImage original = ImageIO.read(new File("Imagenes/MisilR.png"));
-            BufferedImage rotated = rotate(original, degrees);
-            
-            misil = new ImageIcon(rotated).getImage();
-            this.repaint();
-            
-            /*JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);*/
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        if(dir==true){
+            try {
+                BufferedImage original = ImageIO.read(new File("Imagenes/MisilR.png"));
+                BufferedImage rotated = rotate(original, degrees);
+
+                misil = new ImageIcon(rotated).getImage();
+                this.repaint();
+
+                /*JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);*/
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        if(dir==false){
+            try {
+                BufferedImage original = ImageIO.read(new File("Imagenes/MisilL.png"));
+                BufferedImage rotated = rotate(original, degrees);
+
+                misil = new ImageIcon(rotated).getImage();
+                this.repaint();
+
+                /*JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);*/
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
