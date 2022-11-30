@@ -207,7 +207,8 @@ public class Misil extends JPanel{
         }
         
         if(detected==true && colision==false && colision2==false){
-            float angulo = Angular.anguloPI(this.getLocation(),car.getLocation());
+            Point puntomisil = new Point(this.getPosX(), 530);
+            float angulo = Angular.anguloPI(puntomisil,car.getLocation());
             if(dir==true){
                 angulo = -((angulo*180)/(float)Math.PI);
             }else{
