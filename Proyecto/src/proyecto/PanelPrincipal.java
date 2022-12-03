@@ -24,21 +24,21 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         if(timer.isRunning()==true){
             Init();
         }
-        car.ValoresRandom();
+        /*car.ValoresRandom();*/
     }
     
     
     private void setItems(){
         avion = new Avion();
-        avion.setBounds(avion.getPosX(), avion.getPosY(), 100, 50);
+        avion.setBounds(0, 0, 100, 50);
         this.add(avion);
         
         car = new Objetivo();
-        car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
+        car.setBounds((int)car.getPosX(), (int)car.getPosY(), 100, 50);
         this.add(car);
         
         misil = new Misil(avion, car);
-        misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
+        misil.setBounds(0, 100, 0, 50);
         this.add(misil);
         
         
@@ -47,65 +47,67 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         
         timer = new Timer(30,null); 
         timer.addActionListener((ActionListener) this);
+        /*timer.start();*/
     }
     
     public void print(){
-        avion.setBounds(avion.getPosX(), avion.getPosY(), 100, 50);
-        misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
-        car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
+        /*car.setBounds(car.getPosX(), car.getPosY(), 100, 50);*/
+        /*misil.setBounds(140, 25, 50, 50);
+        avion.setBounds(100, 0, 100, 50);*/
+        if(inicializado==false){
+            car.setBounds((int)car.getPosX(), (int)car.getPosY(), 100, 50);
+            avion.setBounds((int)avion.getPosX(), (int)avion.getPosY(), 100, 50);
+            misil.setBounds((int)misil.getPosX(), (int)misil.getPosY(), 50, 50);
+        }
         
         p.repaint();
         avion.repaint();
-        misil.repaint();
         car.repaint();
+        misil.repaint();
         super.repaint();
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         /*System.out.println("*");*/ 
-        avion.setBounds(avion.getPosX(), avion.getPosY(), 100, 50);
+        misil.Colision();
+        
+        car.setBounds((int)car.getPosX(), (int)car.getPosY(), 100, 50);
+        car.mover();
+        avion.setBounds((int)avion.getPosX(), (int)avion.getPosY(), 100, 50);
         avion.mover();
-        
-        if(misil.colision2==false){
-            car.setBounds(car.getPosX(), car.getPosY(), 100, 50);
-            car.mover();
-            misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
-        }else{
-            misil.setBounds(misil.getPosX()-150, misil.getPosY()-200, 250, 250);
-        }
-        
-        misil.Deteccion();
-        misil.NoDeteccion();
-        misil.ColisionCar();
-        
-        if(misil.detected==false && misil.colision2==false){
-            misil.mover();
-        }
-        if(misil.detected==true && misil.colision2==false){
-            misil.mover2();
-        }
-        
-        if(misil.colision==true){
-            timer.stop();
-        }
-        
+        misil.setBounds((int)misil.getPosX(), (int)misil.getPosY(), 50, 50);
+        misil.mover();
         p.repaint();
         
+        if(misil.getColision()==true){
+            misil.setBounds((int)misil.getPosX()-100, (int)misil.getPosY()-150, 250, 250);
+        }
+                       
         super.repaint();
         avion.repaint();
-        misil.repaint();
         car.repaint();
+        misil.repaint();
+        
    }
     
     public void Init(){
+        timer.start();
         inicializado=true;
     }
     public boolean Inicializado(){
         return  inicializado;
     }
     public void Initreset(){
+        timer.stop();
         inicializado=false;
+    }
+    public void Reset(){
+        timer.restart();
+        timer.stop();
+        avion.Reset();
+        misil.Reset();
+        car.Reset();
     }
     public Avion getAvion(){
         return avion;

@@ -34,5 +34,6 @@ public class VelSlider{
         botones.selec.setVelocidad(this.velocidad.getValue());
         System.out.println("Velocidad: " + this.velocidad.getValue());
     }
+    
 }
         

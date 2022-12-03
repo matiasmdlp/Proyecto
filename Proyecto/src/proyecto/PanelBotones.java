@@ -10,7 +10,7 @@ public class PanelBotones extends JPanel{
     
     public PanelBotones(Ventana v, PanelPrincipal pp){
         super();
-        botones = new Botones(v, pp); 
+        botones = new Botones(v, pp,vel); 
         
         vel = new VelSlider(v, botones);
     }

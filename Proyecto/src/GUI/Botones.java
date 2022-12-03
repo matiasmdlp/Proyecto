@@ -17,11 +17,13 @@ public class Botones {
     Ventana panel;
     PanelPrincipal pp;
     Seleccion selec;
+    VelSlider slider;
     
-    public Botones(Ventana v, PanelPrincipal pp){
+    public Botones(Ventana v, PanelPrincipal pp, VelSlider slider){
         panel = v;
         this.pp=pp;
         selec = new Seleccion(pp.getAvion(),pp.getObj(),pp.getMisil(), pp);
+        this.slider=slider;
         
         //Boton UP
         UP = new JButton();
@@ -189,42 +191,27 @@ public class Botones {
     }
     
     private void BotonRandomActionPerformed(ActionEvent evt) {
-        pp.car.ValoresRandom();
+        pp.getObj().ValoresRandom();
     }
 
     private void BotonLaunchActionPerformed(ActionEvent evt) {
-        if(pp.timer.isRunning()==true){
-            pp.getMisil().Lanzamiento();
+        if(pp.inicializado==true){
+            pp.getMisil().Lanzamiento(true);
         }
-        
         System.out.println("Presiona LAUNCH");
     }
 
     private void BotonStartActionPerformed(ActionEvent evt) {
-        if(pp.timer.isRunning()==false){
-            pp.timer.start();
-            pp.inicializado=true;
+        if(pp.inicializado==false){
+            pp.Init();            
         }else{
-            pp.timer.stop();
+            pp.Initreset();
         }
         System.out.println("Presiona START");
     }
 
     private void BotonResetActionPerformed(ActionEvent evt) {
-        pp.timer.restart();
-        pp.timer.stop();
-        pp.getAvion().ResetPos();
-        pp.getObj().ResetPos();
-        pp.getMisil().ResetPos();
-        pp.getMisil().colision2=false;
-        pp.getMisil().detected=false;
-        pp.inicializado=false;
-        pp.lanzamiento=false;
-        pp.car.ValoresRandom();
-        objetivo.setSelected(false);
-        avion.setSelected(false);
-        selec.setCual(2);
-        
+        pp.Reset();
         System.out.println("Presiona RESET");
         
     }
@@ -232,7 +219,6 @@ public class Botones {
     private void BotonAvionActionPerformed(ActionEvent evt) {
         objetivo.setSelected(false);
         selec.setCual(1);
-        
         System.out.println("Presiona AVION");
         
     }
