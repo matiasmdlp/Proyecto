@@ -5,6 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+/**
+ * Clase PanelPrincipal: Panel donde se muestran los objetos de la simulacion.
+ * @author Joaquin Avalos
+ * @author Matias Medina
+ * @version 1.0.0
+ */
 
 public class PanelPrincipal extends JPanel implements ActionListener{
     public Timer timer;
@@ -14,7 +20,9 @@ public class PanelPrincipal extends JPanel implements ActionListener{
     public Objetivo car;
     public boolean lanzamiento = false;
     public boolean inicializado=false;
-    
+    /**
+     * Metodo constructor de PanelPrincipal
+     */
     public PanelPrincipal(){
         super();
         setItems();
@@ -26,7 +34,9 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         }
     }
     
-    
+    /**
+     * Metodo setter de los objetos utilizados en la simulacion.
+     */
     private void setItems(){
         avion = new Avion();
         avion.setBounds(avion.getPosX(), avion.getPosY(), 100, 50);
@@ -47,7 +57,9 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         timer = new Timer(30,null); 
         timer.addActionListener((ActionListener) this);
     }
-    
+    /**
+     * Metodo que pinta los objetos de la simulacion en el Panel.
+     */
     public void print(){
         avion.setBounds(avion.getPosX(), avion.getPosY(), 100, 50);
         misil.setBounds(misil.getPosX(), misil.getPosY(), 50, 50);
@@ -59,7 +71,10 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         car.repaint();
         super.repaint();
     }
-    
+    /**
+     * Metodo que permite situar y movilizar los objetos de la simulacion dado un evento.
+     * @param e Evento
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         /*System.out.println("*");*/ 

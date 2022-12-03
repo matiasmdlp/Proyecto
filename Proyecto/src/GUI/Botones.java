@@ -10,6 +10,14 @@ import java.awt.image.BufferedImage;
 import javax.swing.JToggleButton;
 import proyecto.*;
 
+/**
+ * Clase Botones, destinada a la inicializacion,atributos y metodos de los botones
+ * @author Joaquin Avalos
+ * @author Matias Medina
+ * @version 1.0.0
+ * 
+*/
+
 public class Botones {
     private JButton UP, DOWN, RIGHT, LEFT, BotonLaunch, Reset, Random;
     JToggleButton avion, objetivo, Start;
@@ -18,9 +26,23 @@ public class Botones {
     PanelPrincipal pp;
     Seleccion selec;
     
+    /**
+     * Metodo constructor parametrizado
+     * @param v Ventana
+     * @param pp Panel Principal
+     * 
+     */
     public Botones(Ventana v, PanelPrincipal pp){
         panel = v;
         this.pp=pp;
+        inicializacionBotones();   
+    }
+    /**
+     * Metodo que inicializa todos los botones del panel
+     * @see Seleccion
+     * 
+     */
+    private void inicializacionBotones(){
         selec = new Seleccion(pp.getAvion(),pp.getObj(),pp.getMisil(), pp);
         
         //Boton UP
@@ -65,6 +87,8 @@ public class Botones {
         });
         panel.add(RIGHT);
         
+        //Boton Left
+        
         LEFT = new JButton();
         LEFT.setBounds(200, 710, 70, 70);
         LEFT.setForeground(Color.white);
@@ -78,6 +102,8 @@ public class Botones {
         });
         panel.add(LEFT);
         
+        //Boton Random
+        
         Random = new JButton("RandomCar");
         Random.setBounds(580, 680, 100, 70);
         Random.setForeground(Color.black);
@@ -88,6 +114,8 @@ public class Botones {
             BotonRandomActionPerformed(evt);
         });
         panel.add(Random);
+        
+        //Boton Launch
         
         BotonLaunch = new JButton();
         BotonLaunch.setBounds(800, 670, 150, 150);
@@ -101,6 +129,8 @@ public class Botones {
             BotonLaunchActionPerformed(evt);
         });
         panel.add(BotonLaunch);
+        
+        //Boton Start
         
         Start = new JToggleButton("Start / Stop");
         Start.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -116,6 +146,8 @@ public class Botones {
         });
         panel.add(Start);
         
+        //Boton Reset
+        
         Reset = new JButton("Reset");
         Reset.setFont(new Font("Arial", Font.PLAIN, 20));
         Reset.setBounds(1000, 760, 150, 70);
@@ -130,6 +162,7 @@ public class Botones {
         });
         panel.add(Reset);
         
+        //Boton Avion
         avion = new JToggleButton();
         avion.setBounds(20, 680, 150, 50);
         avion.setForeground(Color.white);
@@ -143,6 +176,7 @@ public class Botones {
         });
         panel.add(avion);
         
+        //Boton Objetivo (Car)
         objetivo = new JToggleButton();
         objetivo.setBounds(20, 760, 150, 50);
         objetivo.setForeground(Color.white);
@@ -155,9 +189,7 @@ public class Botones {
             BotonObjetivoActionPerformed(evt);
         });
         panel.add(objetivo);
-        
-        
-        
+
         /*velocidad = new JSlider(JSlider.HORIZONTAL, 1,10);
         velocidad.setBounds(500, 710, 200, 50);
         velocidad.setMajorTickSpacing(10);
@@ -165,33 +197,57 @@ public class Botones {
         velocidad.setPaintTicks(true);
         velocidad.setPaintLabels(true);
         panel.add(velocidad);*/
-        
-    }   
-
+    }
+    /**
+     * Metodo que acciona el boton UP
+     * @param evt 
+     * @see Seleccion
+     */
     private void BotonUPActionPerformed(ActionEvent evt) {
         selec.Subir();
         System.out.println("Presiona UP");
     }
+    /**
+     * Metodo que acciona el boton DOWN
+     * @param evt 
+     * @see Seleccion
+     */
 
     private void BotonDOWNActionPerformed(ActionEvent evt) {
         selec.Bajar();
         System.out.println("Presiona DOWN");
     }
-
+    /**
+     * Metodo que acciona el boton RIGHT
+     * @param evt 
+     * @see Seleccion
+     */
     private void BotonRIGHTActionPerformed(ActionEvent evt) {
         selec.Derecha();
         System.out.println("Presiona RIGHT");
     }
-
+    /**
+     * Metodo que acciona el boton LEFT
+     * @param evt 
+     * @see Seleccion
+     */
     private void BotonLEFTActionPerformed(ActionEvent evt) {
         selec.Izquierda();
         System.out.println("Presiona LEFT");
     }
-    
+    /**
+     * Metodo que acciona el boton Random
+     * @param evt 
+     * @see Objetivo
+     */    
     private void BotonRandomActionPerformed(ActionEvent evt) {
         pp.car.ValoresRandom();
     }
+    /**
+     * Metodo que acciona el boton Launch
+     * @param evt 
 
+     */
     private void BotonLaunchActionPerformed(ActionEvent evt) {
         if(pp.timer.isRunning()==true){
             pp.getMisil().Lanzamiento();
@@ -199,7 +255,10 @@ public class Botones {
         
         System.out.println("Presiona LAUNCH");
     }
-
+    /**
+     * Metodo que acciona el boton Start/Stop, inicia o pausa la simulacion.
+     * @param evt 
+     */
     private void BotonStartActionPerformed(ActionEvent evt) {
         if(pp.timer.isRunning()==false){
             pp.timer.start();
@@ -209,7 +268,11 @@ public class Botones {
         }
         System.out.println("Presiona START");
     }
-
+    /**
+     * Metodo que acciona el boton Reset, reinicia la simulacion.
+     * @param evt 
+     * @see Seleccion
+     */    
     private void BotonResetActionPerformed(ActionEvent evt) {
         pp.timer.restart();
         pp.timer.stop();
@@ -227,6 +290,11 @@ public class Botones {
         System.out.println("Presiona RESET");
         
     }
+    /**
+     * Metodo que acciona el boton Avion
+     * @param evt 
+     * @see Seleccion
+     */    
 
     private void BotonAvionActionPerformed(ActionEvent evt) {
         objetivo.setSelected(false);
@@ -235,7 +303,11 @@ public class Botones {
         System.out.println("Presiona AVION");
         
     }
-
+    /**
+     * Metodo que acciona el boton Objetivo
+     * @param evt 
+     * @see Seleccion
+     */    
     private void BotonObjetivoActionPerformed(ActionEvent evt) {
         avion.setSelected(false);
         selec.setCual(0);

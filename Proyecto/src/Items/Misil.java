@@ -143,7 +143,7 @@ public class Misil extends JPanel{
         }
         super.repaint();
     }
-    
+    /** Realiza el cambio de posicion*/
     public void mover2(){
         if(dir==true && colision==false){
             x = x+vel;
@@ -165,7 +165,9 @@ public class Misil extends JPanel{
         }
         super.repaint();
     }
-    
+    /**
+     * Reinicia la posicion del misil
+     */
     public void ResetPos(){
         x=40;
         y=125;
@@ -177,7 +179,9 @@ public class Misil extends JPanel{
         misil = new ImageIcon("Imagenes/MisilR.png").getImage();
         this.repaint();
     }
-    
+    /**
+     * Metodo vacio que permite la deteccion del objetivo
+     */
     public void Deteccion(){
         int dif = 590-(this.getPosY()+50);
         
@@ -197,7 +201,9 @@ public class Misil extends JPanel{
             System.out.println("Detectado");
         }
     }
-    
+    /**
+     * Metodo que permite la no deteccion del objetivo
+     */
     public void NoDeteccion(){     
         if(car.getX()+100<x1 && car.getX()+100<x1-150 && detected==true){
             dir=false;
@@ -213,7 +219,9 @@ public class Misil extends JPanel{
             System.out.println("No Detectado");
         }
     }
-    
+    /**
+     * Metodo que permite conocer si el misil colisiono con el objetivo.
+     */
     public void ColisionCar(){
         if(this.getY()>=570 && dir==true && (this.getX()+45>car.getX()+10) && (this.getX()+45)<car.getX()+90){
             colision2=true;

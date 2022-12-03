@@ -61,12 +61,18 @@ public class Avion extends JPanel{
         }
     }
     
-    /**@return posicion actual en X */
+    /**
+     * Metodo Getter de la posicion del avion en el eje x
+     * @return posicion actual en X 
+     */
     public int getPosX(){
         return x;
     }
     
-    /**@return posicion actual en Y */
+    /**
+     * Metodo Getter de la posicion del avion en el eje y
+     * @return posicion actual en Y.
+     */
     public int getPosY(){
         return y;
     }
@@ -120,7 +126,9 @@ public class Avion extends JPanel{
     public int getVel(){
         return vel;
     }
-    
+    /**
+     * Metodo que reinicia la posicion del avion
+     */
     public void ResetPos(){
         x=0;
         y=100;
@@ -130,7 +138,10 @@ public class Avion extends JPanel{
         avion = new ImageIcon("Imagenes/AvionR.png").getImage();
         this.repaint();
     }
-
+    /**
+     * Metodo que pinta la imagen del avion.
+     * @param g Graphics 
+     */
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(avion, 0, 0, null);

@@ -141,7 +141,9 @@ public class Objetivo extends JPanel{
     public int getVel(){
         return vel;
     }
-    
+    /**
+     * Metodo vacio que reinicia la posicion del objetivo
+     */
     public void ResetPos(){
         x=0;
         y=580;
@@ -151,7 +153,10 @@ public class Objetivo extends JPanel{
         objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
         this.repaint();
     }
-    
+    /**
+     * Metodo vacio que le atribuye valores aleatorios al objetivo.
+     * @see GUI.Botones
+     */
     public void ValoresRandom(){
         int numero = (int)(Math.random()*(10-1+1)+1);
         vel=numero;

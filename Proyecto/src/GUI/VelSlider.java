@@ -4,10 +4,21 @@ import java.awt.Font;
 import javax.swing.event.*;
 import javax.swing.JSlider;
 import proyecto.Ventana;
+/**
+ * Clase VelSlider, que inicializa y maneja los parametros del slider de velocidad.
+ * @author Joaquin Avalos
+ * @author Matias Medina
+ * @version 1.0.0
+ */
 
 public class VelSlider{
     JSlider velocidad;
     Botones botones;
+    /**
+     * Metodo constructor de VelSlider parametrizado
+     * @param v Ventana
+     * @param bot Botones
+     */
 
     public VelSlider(Ventana v, Botones bot) {
         botones = bot;
@@ -29,7 +40,10 @@ public class VelSlider{
         
         v.add(velocidad);
     }
-
+    /**
+     * Metodo que permite modificar el slider de velocidad
+     * @param evt 
+     */
     private void BotonvelocidadActionPerformed(ChangeEvent evt) {
         botones.selec.setVelocidad(this.velocidad.getValue());
         System.out.println("Velocidad: " + this.velocidad.getValue());

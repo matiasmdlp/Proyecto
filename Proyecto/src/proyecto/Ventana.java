@@ -1,17 +1,23 @@
 package proyecto;
 
-import GUI.VelSlider;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
-
+/**
+ * Clase Ventana que situa los distintos paneles e inicializa un timer.
+ * @author Matias Medina
+ * @author Joaquin Avalos
+ * @version 1.0.0
+ */
 public class Ventana extends JFrame implements ActionListener{
     PanelPrincipal pp;
     PanelBotones pb;
     public Timer timer2;
-    
+    /**
+     * Metodo constructor de Ventana
+     */
     public Ventana(){
         super();
         setItems();
@@ -21,7 +27,9 @@ public class Ventana extends JFrame implements ActionListener{
         this.setSize(1200, 900);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-    
+    /**
+     * Metodo setter de los objetos en ventana.
+     */
     private void setItems(){
         pp = new PanelPrincipal();
         this.setBackground(Color.black);

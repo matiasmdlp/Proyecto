@@ -3,6 +3,12 @@ package Metodos;
 import java.awt.*;
 import java.awt.geom.*;
 import javax.swing.*;
+/**
+ * Clase RotarPanel : Permite la rotacion del misil.
+ * @author Joaquin Avalos
+ * @author Matias Medina
+ * @version 1.0.0
+ */
  
 public class RotarPanel extends JPanel {
     private Image image;

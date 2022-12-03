@@ -15,7 +15,7 @@ public class Angular {
      * @param uno: punto actual
      * @param r: radio en pixeles
      * @param alfaGiro: angulo desde la horizontal en PI radianes
-     * @return: punto nuevo
+     * @return punto nuevo
      */
     public  static Point generaPunto(Point uno, double r, double alfaGiro){    
         int x = (int)((double) uno.x + r*Math.cos(alfaGiro*Math.PI));
@@ -28,7 +28,7 @@ public class Angular {
      *
      * @param uno: punto de referencia
      * @param dos: otro punto
-     * @return: el ángulo con respecto a la horizontal
+     * @return el ángulo con respecto a la horizontal
      */
     public static float anguloPI(Point uno, Point dos){
         float angulo,alto,ancho;       
