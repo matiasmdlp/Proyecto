@@ -1,5 +1,6 @@
 package Items;
 
+import Metodos.Vector2;
 import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
@@ -22,162 +23,136 @@ public class Objetivo extends JPanel{
      * int vel guarda la constante de cambio (movimiento)
      * boolean dir guarda direccion elegida (true=derecha, false=izquierda) 
      */ 
-    private Image objetivo;
-    private int x;
-    static private int y;
-    static private int posx=0;
-    static private int posy=580;
-    private int vel=5;
-    boolean dir=true;
+    private Image car;
+    private float x, y;
+    private float velocidad=3f;
+    float angulo = 0;
+    boolean colision=false;
+    
+    private float x0,y0,v0;
+    
     
     /** Constructor, se inicializan valores por defecto*/
     public Objetivo(){
         loadImage();
-        x=0;
-        y=580;
-        this.setOpaque(false);
         
         setInitPos();
+        
+        v0=velocidad;
+        
+        ValoresRandom();
+        
+        this.setOpaque(false);
     }
     
-    /** Realiza la carga de imagen */
+    /** Realiza la carga de imagen */ 
     private void loadImage() {
-        if(dir==false){
-            objetivo = new ImageIcon("Imagenes/AutoL.png").getImage();
-            
-        }else{
-            objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
+        if(angulo==0){
+            car = new ImageIcon("Imagenes/AutoR.png").getImage();
+        }else{ 
+            if(angulo==180){
+                car = new ImageIcon("Imagenes/AutoL.png").getImage();
+            }
         }
+         
     }
     
-    /** cambia la posicion en el eje X
-    * @param x1 int 
-    */
-    public void CambiarX(int x1){
-        x=x1;    
-    }
-    
-    /** cambia la posicion en el eje Y
-    * @param y1 int 
-    */
-    public void CambiarY(int y1){    
-    }
-    
-    /**@return posicion actual en X */
-    public int getPosX(){
+    public float getPosX(){
         return x;
     }
-    
-    /**@return posicion actual en Y */
-    public int getPosY(){
+    public float getPosY(){
         return y;
     }
     
+    public float getVelocidad(){
+        return velocidad;
+    }
+    public void setVelocidad(float v){
+        velocidad = v;
+    }
+    
+    public float getAngulo(){
+        return angulo;
+    }
+    public void setAngulo(float ang){
+        angulo = ang;
+        if(angulo==180){
+            car = new ImageIcon("Imagenes/AutoL.png").getImage();
+        }else{
+            car = new ImageIcon("Imagenes/AutoR.png").getImage();
+        }
+    }
+    
     public void setInitPos(){
-        if(dir==true){
-            x=0;
-            y=580;
-        }else{
-            x=1080;
-            y=580;
+        if(angulo==0){
+            x=x0=0;
+            y=y0=580;
+            car = new ImageIcon("Imagenes/AutoR.png").getImage();
+        }
+        if(angulo==180){
+            x=1100;
+            y= 580;
+            car = new ImageIcon("Imagenes/AutoL.png").getImage();
         }
     }
     
-    /** Cambia la dirección
-    * @param b boolean asociado a la direccion 
-    */
-    public void setDireccion(boolean b){
-        if(dir==true && b==false){
-            vel = (vel*-1);
-        }
-        if(dir==false && b==true){
-            vel = (vel*-1);
-        }
-        dir=b;
-        vel = (vel*-1);
-        
-        if(dir==false){
-            objetivo = new ImageIcon("Imagenes/AutoL.png").getImage();
-            this.repaint();
-            
-        }else{
-            objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
-            this.repaint();
-        }
-    }
-    
-    public boolean CualDireccion(){
-        return dir;
-    }
-    
-    /** Realiza el cambio de posicion*/
     public void mover(){
-        if(dir==true){
-            x = x+vel;
-            if(x>=1200){
-                x = -100;
-            }
-        }
-        if(dir==false){
-            x = x-vel;
-            if(x<=-100){
-                x=1200;
-            }   
+        if(colision==false){
+            Vector2 frente = new Vector2((float) Math.cos(Math.toRadians(angulo)), (float) Math.sin(Math.toRadians(angulo)));
+            frente.escalar(velocidad);
+
+            x += frente.x;
+            y += frente.y;
+
+            if(x > 1200) x = -100 ;
+            if(x < -100) x = 1200;
+
+            if(y > 590) y -= frente.y;
         }
     }
     
-    /** Cambiar la velocidad actual*/
-    public void setVel(int v){
-        if(dir==true){
-            vel=v;
-        }
-        if(dir==false){
-            vel=-v;  
+    public void Reset(){
+        /*x=x0;
+        y=y0;
+        angulo=0;
+        velocidad=v0;*/
+        colision=false;
+        ValoresRandom();
+        if(angulo==0){
+            car = new ImageIcon("Imagenes/AutoR.png").getImage();
+        }else{
+            car = new ImageIcon("Imagenes/AutoL.png").getImage();
         }
         
     }
     
-    /** @return velocidad*/
-    public int getVel(){
-        return vel;
-    }
-    /**
-     * Metodo vacio que reinicia la posicion del objetivo
-     */
-    public void ResetPos(){
-        x=0;
-        y=580;
-        dir = true;
-        vel=5;
-        
-        objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
-        this.repaint();
-    }
-    /**
-     * Metodo vacio que le atribuye valores aleatorios al objetivo.
-     * @see GUI.Botones
-     */
     public void ValoresRandom(){
-        int numero = (int)(Math.random()*(10-1+1)+1);
-        vel=numero;
+        int numero = (int)(Math.random()*(12-4+1)+4);
+        velocidad=numero;
         Random randomno = new Random();
         boolean value = randomno.nextBoolean();
-        dir=value;
-        if(dir==true){
+        if(value==true){
+            angulo=0;
             x=0;
             y=580;
-            objetivo = new ImageIcon("Imagenes/AutoR.png").getImage();
+            car = new ImageIcon("Imagenes/AutoR.png").getImage();
         }else{
+            angulo=180;
             x=1080;
             y=580;
-            objetivo = new ImageIcon("Imagenes/AutoL.png").getImage();
+            car = new ImageIcon("Imagenes/AutoL.png").getImage();
         }
-        System.out.println(dir+" "+numero);
+        
+        System.out.println(angulo+" "+numero);
+    }
+    
+    public void setColision(){
+        colision=true;
     }
     
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(objetivo, 0, 0, null);
+        g2d.drawImage(car, 0, 0, null);
     }
 
     @Override

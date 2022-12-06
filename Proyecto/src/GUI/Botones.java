@@ -25,6 +25,7 @@ public class Botones {
     Ventana panel;
     PanelPrincipal pp;
     Seleccion selec;
+    VelSlider slider;
     
     /**
      * Metodo constructor parametrizado
@@ -32,7 +33,7 @@ public class Botones {
      * @param pp Panel Principal
      * 
      */
-    public Botones(Ventana v, PanelPrincipal pp){
+    public Botones(Ventana v, PanelPrincipal pp, VelSlider slider){
         panel = v;
         this.pp=pp;
         inicializacionBotones();   
@@ -44,6 +45,7 @@ public class Botones {
      */
     private void inicializacionBotones(){
         selec = new Seleccion(pp.getAvion(),pp.getObj(),pp.getMisil(), pp);
+        this.slider=slider;
         
         //Boton UP
         UP = new JButton();
@@ -241,7 +243,7 @@ public class Botones {
      * @see Objetivo
      */    
     private void BotonRandomActionPerformed(ActionEvent evt) {
-        pp.car.ValoresRandom();
+        pp.getObj().ValoresRandom();
     }
     /**
      * Metodo que acciona el boton Launch
@@ -249,10 +251,9 @@ public class Botones {
 
      */
     private void BotonLaunchActionPerformed(ActionEvent evt) {
-        if(pp.timer.isRunning()==true){
-            pp.getMisil().Lanzamiento();
+        if(pp.inicializado==true){
+            pp.getMisil().Lanzamiento(true);
         }
-        
         System.out.println("Presiona LAUNCH");
     }
     /**
@@ -260,11 +261,10 @@ public class Botones {
      * @param evt 
      */
     private void BotonStartActionPerformed(ActionEvent evt) {
-        if(pp.timer.isRunning()==false){
-            pp.timer.start();
-            pp.inicializado=true;
+        if(pp.inicializado==false){
+            pp.Init();            
         }else{
-            pp.timer.stop();
+            pp.Initreset();
         }
         System.out.println("Presiona START");
     }
@@ -274,19 +274,7 @@ public class Botones {
      * @see Seleccion
      */    
     private void BotonResetActionPerformed(ActionEvent evt) {
-        pp.timer.restart();
-        pp.timer.stop();
-        pp.getAvion().ResetPos();
-        pp.getObj().ResetPos();
-        pp.getMisil().ResetPos();
-        pp.getMisil().colision2=false;
-        pp.getMisil().detected=false;
-        pp.inicializado=false;
-        pp.lanzamiento=false;
-        objetivo.setSelected(false);
-        avion.setSelected(false);
-        selec.setCual(2);
-        
+        pp.Reset();
         System.out.println("Presiona RESET");
         
     }
@@ -299,7 +287,6 @@ public class Botones {
     private void BotonAvionActionPerformed(ActionEvent evt) {
         objetivo.setSelected(false);
         selec.setCual(1);
-        
         System.out.println("Presiona AVION");
         
     }

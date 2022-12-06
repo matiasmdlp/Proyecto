@@ -2,6 +2,12 @@ package Items;
 
 import java.awt.*;
 import javax.swing.*;
+import Metodos.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /** 
  * Clase Misil el objeto lanzado
@@ -16,54 +22,59 @@ public class Misil extends JPanel{
      * boolean dir guarda direccion elegida (true=derecha, false=izquierda)
      * boolean v utilizado para asociar su posicion a la del avion
      */ 
-    private Image misil;
-    private boolean v, cardir;
-    public boolean detected, colision, colision2;
-    private int x, y;
-    private int vel=0;
-    boolean dir=true;
-    Avion av;
+    Image misil;
+    float x, y;
+    float angulo; // 0 - 360, sentido del reloj
+    float radio = 300;
+    float velAngular = 5f;
+    private float v0;
+    float velocidad = v0 = 10f;
+    float t = 30f;
+    boolean lanzamiento, deteccion, colision;
+    Avion avion;
     Objetivo car;
-    public int x1=-1000;
-    public int x2=-1000;
     
     /** Constructor, se inicializan valores por defecto*/
     public Misil(Avion av, Objetivo obj){
-        v = false;
+        lanzamiento=false;
+        deteccion=false;
+        colision=false;
+        avion=av;
         car=obj;
-        cardir = car.dir;
-        colision = false;
-        colision2 = false;
-        detected=false;
-        this.av=av;
-        vel=av.getVel();
+        angulo=av.getAngulo();
+        velocidad= av.getVelocidad();
         
-        loadImage();
         setInitPos();
         
+        loadImage();
         this.setOpaque(false);
     }
     
     /** Realiza la carga de imagen */    
     private void loadImage() {
-        if(dir==false){
-            misil = new ImageIcon("Imagenes/MisilL.png").getImage();
-            
-        }else{
-            misil = new ImageIcon("Imagenes/MisilR.png").getImage();
+        Rotar((double)angulo);
+         
+    }
+    
+    public void setInitPos(){
+        if(angulo==0){
+            x=40;
+            y=125;
         }
+        if(angulo==180){
+            x=1110;
+            y=125;
+        }
+        Rotar((double)angulo);
     }
     
-    /** cambia la posicion en el eje X
-    * @param x1 int 
-    */
-    public void CambiarX(int x1){
-        x = x + x1;    
+    public float getPosX(){
+        return x;
+    }
+    public float getPosY(){
+        return y;
     }
     
-    /** cambia la posicion en el eje Y
-    * @param y1 int 
-    */
     public void CambiarY(int y1){
         if(y>35 && y<325){
             y = y + y1;    
@@ -76,163 +87,42 @@ public class Misil extends JPanel{
         }
     }
     
-    /**@return posicion actual en X */
-    public int getPosX(){
-        return x;
+    
+    public float getVelocidad(){
+        return velocidad;
+    }
+    public void setVelocidad(float v){
+        velocidad = v;
     }
     
-    /**@return posicion actual en Y */
-    public int getPosY(){
-        return y;
+    public void setDireccion(float d){
+        angulo=d;
     }
     
-    public void setVel(int v){
-        vel=v;
-    }
-    
-    public void Lanzamiento(){
-        v = true;
-    }
-    
-    /** Cambia la dirección
-    * @param b boolean asociado a la direccion 
-    */
-    public void setDireccion(boolean b){
-        dir=b;
-        
-        if(dir==false){
-            misil = new ImageIcon("Imagenes/MisilL.png").getImage();
-            this.repaint();
-            
-        }else{
-            misil = new ImageIcon("Imagenes/MisilR.png").getImage();
-            this.repaint();
-        }
-    }
-    
-    /** inicializa la posicion original*/
-    public void setInitPos(){
-        if(dir==true){
-            x=40;
-            y=125;
-        }else{
-            x=1090;
-            y=125;
-        }
-    } 
-    
-    /** Realiza el cambio de posicion*/
-    public void mover(){
-        if(dir==true && colision==false){
-            x = x+vel;
-            if(x>=1240){
-                x = -60;
+    public void Lanzamiento(boolean l){
+        lanzamiento=l;
+        if(lanzamiento == true){
+            if(angulo==0){
+                angulo = 10;
+            }else{
+                angulo = 170;
             }
-        }
-        if(dir==false && colision==false){
-            x = x-vel;
-            if(x<=-90){
-                x=1210;
-            }   
-        }
-        if(v==true && this.getPosY()<=590){
-            y = y+2;
-            if(this.getPosY()>590){
-                colision=true;
-            }
-        }
-        super.repaint();
+            Rotar((double)angulo);
+        }   
     }
-    /** Realiza el cambio de posicion*/
-    public void mover2(){
-        if(dir==true && colision==false){
-            x = x+vel;
-            if(x>=1240){
-                x = -60;
-            }
-        }
-        if(dir==false && colision==false){
-            x = x-vel;
-            if(x<=-90){
-                x=1210;
-            }   
-        }
-        if(v==true && this.getPosY()<=590){
-            y = y+3;
-            if(this.getPosY()>590){
-                colision=true;
-            }
-        }
-        super.repaint();
-    }
-    /**
-     * Reinicia la posicion del misil
-     */
-    public void ResetPos(){
+    
+    public void Reset(){
         x=40;
         y=125;
-        dir = true;
-        vel=10;
-        v=false;
+        angulo=0;
+        velocidad=v0;
         colision=false;
-        
-        misil = new ImageIcon("Imagenes/MisilR.png").getImage();
-        this.repaint();
-    }
-    /**
-     * Metodo vacio que permite la deteccion del objetivo
-     */
-    public void Deteccion(){
-        int dif = 590-(this.getPosY()+50);
-        
-        if(dir==true){
-            x1 = this.getPosX()+50;
-            x2 = this.getPosX()+350;
-        }
-        
-        if(dir==false){
-            x2 = this.getPosX();
-            x1 = this.getPosX()-300;
-        }
-        
-        if((car.getX()>x1 && car.getX()<x2 && dif<=250)||(car.getX()+100>x1 && car.getX()+100<x2 && dif<=250)){
-            detected=true;
-            cardir=car.dir;
-            System.out.println("Detectado");
-        }
-    }
-    /**
-     * Metodo que permite la no deteccion del objetivo
-     */
-    public void NoDeteccion(){     
-        if(car.getX()+100<x1 && car.getX()+100<x1-150 && detected==true){
-            dir=false;
-            misil = new ImageIcon("Imagenes/MisilL.png").getImage();
-            detected=false;
-            System.out.println("No Detectado");
-        }
-        
-        if(car.getX()>x2 && car.getX()<x2+150 && detected==true){
-            dir=true;
-            misil = new ImageIcon("Imagenes/MisilR.png").getImage();
-            detected=false;
-            System.out.println("No Detectado");
-        }
-    }
-    /**
-     * Metodo que permite conocer si el misil colisiono con el objetivo.
-     */
-    public void ColisionCar(){
-        if(this.getY()>=570 && dir==true && (this.getX()+45>car.getX()+10) && (this.getX()+45)<car.getX()+90){
-            colision2=true;
-            misil = new ImageIcon("Imagenes/Explosion.gif").getImage();
-        }
-        if(this.getY()>=570 && dir==false && (this.getX()+5>car.getX()+10) && (this.getX()+5<car.getX()+90)){
-            colision2=true;
-            misil = new ImageIcon("Imagenes/Explosion.gif").getImage();
-        }
+        deteccion=false;
+        lanzamiento=false;
+        Rotar((double)angulo);
     }
     
+
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(misil, 0, 0, null);
@@ -244,4 +134,143 @@ public class Misil extends JPanel{
         super.paintComponent(g);
         doDrawing(g);
     }
+    
+    
+    ////
+    public boolean checkearObjectivo() {
+        Vector2 dist = new Vector2((car.getPosX()+50) - this.x, car.getPosY() - this.y);
+
+        // si el objetivo esta fuera del rango radial, descartar
+        float mag = dist.magnitud();
+        if (mag > radio) {
+            deteccion=false;
+            return false;
+        }
+
+        Vector2 frente = new Vector2((float) Math.cos(Math.toRadians(angulo)), (float) Math.sin(Math.toRadians(angulo)));
+
+        dist.normalizar();
+        frente.normalizar();
+
+        // si el objetivo esta frente al misil, entonces retornar verdadero
+        if(Vector2.dot(dist, frente) > 0f){
+            deteccion=true;
+            return true;
+        } // sino, descartar
+        else{
+            deteccion=false; 
+            return false;
+        } 
+    }
+
+    public void girar() {
+        Vector2 dist = new Vector2((car.getPosX()+50) - this.x, car.getPosY() - this.y);
+
+        // pasamos el angulo a Vector en 2 dimensiones
+        float anguloObjetivo = (float) Math.toDegrees(Math.atan2(dist.y, dist.x));
+
+        // encontrar la direccion con menor dif de angulo
+        float delta = anguloObjetivo - angulo;
+        float delta2 = anguloObjetivo - angulo - 360f;
+        float delta3 = anguloObjetivo - angulo + 360f;
+        if (Math.abs(delta2) < Math.abs(delta) && Math.abs(delta2) < Math.abs(delta3)) {
+            delta = delta2;
+        }
+        if (Math.abs(delta3) < Math.abs(delta) && Math.abs(delta3) < Math.abs(delta2)) {
+            delta = delta3;
+        }
+
+        // si la diferencia de angulo es menor a la velocidad angular, rotar directamente al objetivo
+        if (Math.abs(delta) < velAngular) {
+            angulo = anguloObjetivo;
+        } else {
+            angulo += Math.signum(delta) * velAngular;
+        }
+
+        // ajuste de angulo final al rango -180, 180
+        if (angulo < -180) {
+            angulo += 360f;
+        } else if (angulo > 180) {
+            angulo -= 360f;
+        }
+        if(angulo == -180){
+            angulo=-175;
+        }
+        if(angulo == 0){
+            angulo=30;
+        }
+        Rotar((double)angulo);
+    }
+    
+    public void mover(){
+        if(checkearObjectivo() && lanzamiento==true){
+            girar();
+            
+        }
+        
+        if(colision==false){
+            Vector2 frente = new Vector2((float) Math.cos(Math.toRadians(angulo)), (float) Math.sin(Math.toRadians(angulo)));
+            frente.escalar(velocidad);
+
+            x += frente.x;
+            y += frente.y;
+
+            if(x > 1200) x = -100;
+            if(x < -100) x = 1200;
+
+            if(y > 590) y -= frente.y;
+            if(y > 580) colision=true;
+        }else{
+            misil = new ImageIcon("Imagenes/Explosion.gif").getImage();
+        }
+    }
+    /////
+        /**
+     * Metodo que permite conocer si el misil colisiono con el objetivo.
+     */
+    public void Colision(){
+        if( ( this.x<(car.getPosX()+90) && this.x>car.getPosX() && (this.y+50)>(car.getPosY()+20) ) || ( (this.x+50)>(car.getPosX()+10) && (this.x+50)< (car.getPosX()+90) && (this.y+50)>(car.getPosY()+20) ) ){
+            colision=true;
+            car.setColision();            
+        }
+    }
+    public boolean getColision(){
+        return colision;
+    }
+    
+    
+    public BufferedImage rotate(BufferedImage image, Double degrees) {
+        double radians = Math.toRadians(degrees);
+        double sin = Math.abs(Math.sin(radians));
+        double cos = Math.abs(Math.cos(radians));
+        int newWidth = (int) Math.round(image.getWidth() * cos + image.getHeight() * sin);
+        int newHeight = (int) Math.round(image.getWidth() * sin + image.getHeight() * cos);
+
+        BufferedImage rotate = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = rotate.createGraphics();
+        int x = (newWidth - image.getWidth()) / 2;
+        int y = (newHeight - image.getHeight()) / 2;
+        AffineTransform at = new AffineTransform();
+        at.setToRotation(radians, x + (image.getWidth() / 2), y + (image.getHeight() / 2));
+        at.translate(x, y);
+        g2d.setTransform(at);
+        g2d.drawImage(image, 0, 0, null);
+        g2d.dispose();
+        return rotate;
+    }
+    
+    public void Rotar(Double degrees){
+        try {
+            BufferedImage original = ImageIO.read(new File("Imagenes/MisilR.png"));
+            BufferedImage rotated = rotate(original, degrees);
+
+            misil = new ImageIcon(rotated).getImage();
+            this.repaint();
+
+            /*JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);*/
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } 
+    }
+    
 }

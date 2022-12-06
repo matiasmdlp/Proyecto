@@ -37,17 +37,17 @@ public class Seleccion {
      * Metodo vacio que controla la direccion hacia la derecha del objeto seleccionado.
      */
     public void Derecha(){
-        if(cual==0 && objetivo.CualDireccion()==false){
+        if(cual==0 && objetivo.getAngulo()==180){
             if(pp.Inicializado()==false){
-                objetivo.setDireccion(true);
+                objetivo.setAngulo(0); 
                 objetivo.setInitPos();
             }else{
-                objetivo.setDireccion(true);
+                objetivo.setAngulo(0);
             }
         }else if(cual==1){
             if(pp.Inicializado()==false){
-                avion.setDireccion(true);
-                misil.setDireccion(true);
+                avion.setDireccion(0);
+                misil.setDireccion(0);
                 avion.setInitPos();
                 misil.setInitPos();
             }
@@ -57,17 +57,17 @@ public class Seleccion {
      * Metodo vacio que controla la direccion hacia la izquierda del objeto seleccionado.
      */
     public void Izquierda(){
-        if(cual==0 && objetivo.CualDireccion()==true){
+        if(cual==0 && objetivo.getAngulo()==0){
             if(pp.Inicializado()==false){
-                objetivo.setDireccion(false);
+                objetivo.setAngulo(180); 
                 objetivo.setInitPos();
             }else{
-                objetivo.setDireccion(false);
+                objetivo.setAngulo(180);
             }
         }else if(cual==1){
             if(pp.Inicializado()==false){
-                avion.setDireccion(false);
-                misil.setDireccion(false);
+                avion.setDireccion(180);
+                misil.setDireccion(180);
                 avion.setInitPos();
                 misil.setInitPos();
             }
@@ -99,22 +99,12 @@ public class Seleccion {
     public void setVelocidad(int vel){
         if(cual==0){
             if(pp.Inicializado()==false){
-                if(objetivo.CualDireccion()==true){
-                    objetivo.setVel(vel);
-                }else{
-                    objetivo.setVel(-vel);
-                }
+                objetivo.setVelocidad((float)vel);
             }
         }else{
             if(pp.Inicializado()==false){
-                if(objetivo.CualDireccion()==true){
-                    avion.setVel(vel);
-                    misil.setVel(vel);
-                }else{
-                    avion.setVel(-vel);
-                    misil.setVel(-vel);
-                }
-                
+                avion.setVelocidad((float)vel);
+                misil.setVelocidad((float)vel);
             }
         } 
     }

@@ -3,6 +3,12 @@ package Items;
 import java.awt.Image;
 import java.awt.*;
 import javax.swing.*;
+import Metodos.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /** 
  * Clase Avion
@@ -17,38 +23,53 @@ public class Avion extends JPanel{
      * boolean dir guarda direccion elegida (true=derecha, false=izquierda)
      */ 
     private Image avion;
-    private int x, y;
-    private int vel=10;
-    boolean dir=true;
+    private float x, y;
+    private float v0;
+    private float velocidad= v0 =10f;
+    float angulo = 0;
+    boolean direccion=true;
+    
     
     /** Constructor, se inicializan valores por defecto*/
     public Avion(){
         loadImage();
         setInitPos();
         
+        
         this.setOpaque(false);
     }
     
     /** Realiza la carga de imagen */ 
     private void loadImage() {
-        if(dir==false){
-            avion = new ImageIcon("Imagenes/AvionL.png").getImage();
-            
-        }else{
+        if(angulo==0){
             avion = new ImageIcon("Imagenes/AvionR.png").getImage();
+        }else{ 
+            if(angulo==180){
+                avion = new ImageIcon("Imagenes/AvionL.png").getImage();
+            }
+        }    
+    }
+    
+    public void setInitPos(){
+        if(angulo==0){
+            x=0;
+            y= 100;
+            avion = new ImageIcon("Imagenes/AvionR.png").getImage();
+        }
+        if(angulo==180){
+            x=1100;
+            y= 100;
+            avion = new ImageIcon("Imagenes/AvionL.png").getImage();
         }
     }
     
-    /** cambia la posicion en el eje X
-    * @param x1 int 
-    */
-    public void CambiarX(int x1){
-        x = x + x1;    
+    public float getPosX(){
+        return x;
+    }
+    public float getPosY(){
+        return y;
     }
     
-    /** cambia la posicion en el eje Y
-    * @param y1 int 
-    */
     public void CambiarY(int y1){
         if(y>10 && y<300){
             y = y + y1;    
@@ -61,6 +82,8 @@ public class Avion extends JPanel{
         }
     }
     
+    public float getVelocidad(){
+        return velocidad;
     /**
      * Metodo Getter de la posicion del avion en el eje x
      * @return posicion actual en X 
@@ -75,69 +98,41 @@ public class Avion extends JPanel{
      */
     public int getPosY(){
         return y;
+    public void setVelocidad(float v){
+        velocidad = v;
     }
     
-    /** Cambia la dirección
-    * @param b boolean asociado a la direccion 
-    */
-    public void setDireccion(boolean b){
-        dir=b;
-        
-        if(dir==false){
-            avion = new ImageIcon("Imagenes/AvionL.png").getImage();
-            this.repaint();
-        }else{
-            avion = new ImageIcon("Imagenes/AvionR.png").getImage();
-            this.repaint();
-        }
+    public float getAngulo(){
+        return angulo;
+    }
+    public void setDireccion(float ang){
+        angulo = ang;
     }
     
-    /** inicializa la posicion original*/
-    public void setInitPos(){
-        if(dir==true){
-            x=0;
-            y=100;
-        }else{
-            x=1080;
-            y=100;
-        }
-    }
-    
-    /** Realiza el cambio de posicion*/
-    public void mover(){
-        if(dir==true){
-            x = x+vel;
-            if(x>=1200){
-                x = -100;
-            }
-        }
-        if(dir==false){
-            x = x-vel;
-            if(x<=-100){
-                x=1200;
-            }   
-        }
-        super.repaint();
-    }
-    
-    public void setVel(int v){
-        vel=v;
-    }
-    public int getVel(){
-        return vel;
-    }
-    /**
-     * Metodo que reinicia la posicion del avion
-     */
-    public void ResetPos(){
+    public void Reset(){
         x=0;
         y=100;
-        dir = true;
-        vel=10;
-        
+        angulo=0;
+        velocidad=v0;
         avion = new ImageIcon("Imagenes/AvionR.png").getImage();
-        this.repaint();
     }
+    
+    public void mover(){
+        
+        Vector2 frente = new Vector2((float) Math.cos(Math.toRadians(angulo)), (float) Math.sin(Math.toRadians(angulo)));
+        frente.escalar(velocidad);
+
+        x += frente.x;
+        y += frente.y;
+        
+        if(x > 1200) x = -100 ;
+        if(x < -100) x = 1200;
+        
+        if(y > 590) y -= frente.y;
+        
+    }
+    
+    
     /**
      * Metodo que pinta la imagen del avion.
      * @param g Graphics 
@@ -153,4 +148,5 @@ public class Avion extends JPanel{
         super.paintComponent(g);
         doDrawing(g);
     }
+    
 }
