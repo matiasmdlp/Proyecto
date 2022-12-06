@@ -4,11 +4,6 @@ import java.awt.Image;
 import java.awt.*;
 import javax.swing.*;
 import Metodos.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /** 
  * Clase Avion
@@ -34,8 +29,6 @@ public class Avion extends JPanel{
     public Avion(){
         loadImage();
         setInitPos();
-        
-        
         this.setOpaque(false);
     }
     
@@ -62,10 +55,20 @@ public class Avion extends JPanel{
             avion = new ImageIcon("Imagenes/AvionL.png").getImage();
         }
     }
-    
-    public float getPosX(){
+    /**
+     * Metodo Getter de la posicion del avion en el eje x
+     *
+     * @return posicion actual en X
+     */
+    public float getPosX() {
         return x;
     }
+
+    /**
+     * Metodo Getter de la posicion del avion en el eje y
+     *
+     * @return posicion actual en Y.
+     */
     public float getPosY(){
         return y;
     }
@@ -84,20 +87,7 @@ public class Avion extends JPanel{
     
     public float getVelocidad(){
         return velocidad;
-    /**
-     * Metodo Getter de la posicion del avion en el eje x
-     * @return posicion actual en X 
-     */
-    public int getPosX(){
-        return x;
     }
-    
-    /**
-     * Metodo Getter de la posicion del avion en el eje y
-     * @return posicion actual en Y.
-     */
-    public int getPosY(){
-        return y;
     public void setVelocidad(float v){
         velocidad = v;
     }

@@ -6,7 +6,6 @@ import java.awt.event.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.image.BufferedImage;
-//import javax.swing.JSlider;
 import javax.swing.JToggleButton;
 import proyecto.*;
 
@@ -138,11 +137,6 @@ public class Botones {
         Start.setFont(new Font("Arial", Font.PLAIN, 20));
         Start.setBounds(1000, 670, 150, 70);
         Start.setForeground(Color.black);
-        /*Start.setOpaque(false);
-        Start.setContentAreaFilled(false);
-        ImageIcon iconStart = new ImageIcon("Imagenes/Boton.png");
-        iconStart = new ImageIcon(iconStart.getImage().getScaledInstance(Boton.getWidth(), Boton.getHeight(), BufferedImage.SCALE_SMOOTH));
-        Start.setIcon(iconStart);*/
         Start.addActionListener((ActionEvent evt) -> {
             BotonStartActionPerformed(evt);
         });
@@ -154,11 +148,6 @@ public class Botones {
         Reset.setFont(new Font("Arial", Font.PLAIN, 20));
         Reset.setBounds(1000, 760, 150, 70);
         Reset.setForeground(Color.black);
-        /*Reset.setOpaque(false);
-        Reset.setContentAreaFilled(false);
-        ImageIcon iconReset = new ImageIcon("Imagenes/Boton.png");
-        iconReset = new ImageIcon(iconReset.getImage().getScaledInstance(Boton.getWidth(), Boton.getHeight(), BufferedImage.SCALE_SMOOTH));
-        Reset.setIcon(iconReset);*/
         Reset.addActionListener((ActionEvent evt) -> {
             BotonResetActionPerformed(evt);
         });
@@ -191,14 +180,6 @@ public class Botones {
             BotonObjetivoActionPerformed(evt);
         });
         panel.add(objetivo);
-
-        /*velocidad = new JSlider(JSlider.HORIZONTAL, 1,10);
-        velocidad.setBounds(500, 710, 200, 50);
-        velocidad.setMajorTickSpacing(10);
-        velocidad.setMinorTickSpacing(1);
-        velocidad.setPaintTicks(true);
-        velocidad.setPaintLabels(true);
-        panel.add(velocidad);*/
     }
     /**
      * Metodo que acciona el boton UP
