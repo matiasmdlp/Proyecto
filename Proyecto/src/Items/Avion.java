@@ -1,9 +1,9 @@
 package Items;
 
+import Utils.Vector2;
 import java.awt.Image;
 import java.awt.*;
 import javax.swing.*;
-import Metodos.*;
 
 /** 
  * Clase Avion
@@ -84,21 +84,38 @@ public class Avion extends JPanel{
             y = y-10;
         }
     }
-    
+    /**
+     * Metodo getter de velocidad
+     * @return velocidad
+     */
     public float getVelocidad(){
         return velocidad;
     }
+    /**
+     * Metodo setter de velocidad
+     * @param v 
+     */
     public void setVelocidad(float v){
         velocidad = v;
     }
-    
+    /**
+     * Metodo getter de Angulo
+     * @return angulo
+     */
     public float getAngulo(){
         return angulo;
     }
+    /**
+     * Metodo setter de Direccion
+     * @param ang 
+     */
     public void setDireccion(float ang){
         angulo = ang;
     }
-    
+    /**
+     * Metodo Reset
+     * Reinicia la posicion velocidad y angulo del avion
+     */
     public void Reset(){
         x=0;
         y=100;
@@ -106,7 +123,9 @@ public class Avion extends JPanel{
         velocidad=v0;
         avion = new ImageIcon("Imagenes/AvionR.png").getImage();
     }
-    
+    /**
+     * Metodo mover, encargado del movimiento del avion
+     */
     public void mover(){
         
         Vector2 frente = new Vector2((float) Math.cos(Math.toRadians(angulo)), (float) Math.sin(Math.toRadians(angulo)));
@@ -121,7 +140,6 @@ public class Avion extends JPanel{
         if(y > 590) y -= frente.y;
         
     }
-    
     
     /**
      * Metodo que pinta la imagen del avion.

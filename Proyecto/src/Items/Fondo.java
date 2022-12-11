@@ -22,7 +22,9 @@ public class Fondo extends JPanel{
     private void loadImage() {
         fondo = new ImageIcon("Imagenes/fondo.png").getImage();
     }
-    
+    /**
+     * Metodo setter del fondo de la simulacion
+     */
     private void setSurfaceSize() {
         
         Dimension d = new Dimension();
@@ -30,7 +32,10 @@ public class Fondo extends JPanel{
         d.height = fondo.getHeight(null);
         setPreferredSize(d);        
     }
-
+    /**
+     * Metodo que pinta el fondo de la simulacion.
+     * @param g 
+     */
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(fondo, 0, 0, null);

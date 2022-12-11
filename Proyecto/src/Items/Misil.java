@@ -1,8 +1,8 @@
 package Items;
 
+import Utils.Vector2;
 import java.awt.*;
 import javax.swing.*;
-import Metodos.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -55,7 +55,9 @@ public class Misil extends JPanel{
         Rotar((double)angulo);
          
     }
-    
+    /**
+     * Metodo Setter de posicion inicial
+     */
     public void setInitPos(){
         if(angulo==0){
             x=40;
@@ -67,14 +69,26 @@ public class Misil extends JPanel{
         }
         Rotar((double)angulo);
     }
-    
+    /**
+     * Metodo getter de Posicion en el eje x
+     * @return x
+     */
     public float getPosX(){
         return x;
     }
+    /**
+     * Metodo Getter de Posicion en el eje y
+     * @return y
+     */
     public float getPosY(){
         return y;
     }
-    
+    /**
+     * Metodo que cambia la posicion del misil dependiendo de su posicion en
+     * la simulacion y el parametro y1
+     * @param y1 entero que se suma a la posicion actual del misil, dependiendo
+     * de su posicion
+     */
     public void CambiarY(int y1){
         if(y>35 && y<325){
             y = y + y1;    
@@ -87,18 +101,31 @@ public class Misil extends JPanel{
         }
     }
     
-    
+    /**
+     * Metodo getter de velocidad
+     * @return velocidad
+     */
     public float getVelocidad(){
         return velocidad;
     }
+    /**
+     * Metodo setter de velocidad
+     * @param v 
+     */
     public void setVelocidad(float v){
         velocidad = v;
     }
-    
+    /**
+     * Metodo setter de direccion en cierto angulo
+     * @param d 
+     */
     public void setDireccion(float d){
         angulo=d;
     }
-    
+    /**
+     * Metodo 
+     * @param l 
+     */
     public void Lanzamiento(boolean l){
         lanzamiento=l;
         if(lanzamiento == true){
@@ -110,7 +137,10 @@ public class Misil extends JPanel{
             Rotar((double)angulo);
         }   
     }
-    
+    /**
+     * Metodo que reinicia las posiciones y condiciones iniciales
+     * del misil
+     */
     public void Reset(){
         x=40;
         y=125;
@@ -122,7 +152,10 @@ public class Misil extends JPanel{
         Rotar((double)angulo);
     }
     
-
+    /**
+     * Metodo que pinta la imagen de misil
+     * @param g 
+     */
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(misil, 0, 0, null);
@@ -137,7 +170,7 @@ public class Misil extends JPanel{
     
     
     ////
-    public boolean checkearObjectivo() {
+    public boolean checkearObjetivo() {
         Vector2 dist = new Vector2((car.getPosX()+50) - this.x, car.getPosY() - this.y);
 
         // si el objetivo esta fuera del rango radial, descartar
@@ -203,7 +236,7 @@ public class Misil extends JPanel{
     }
     
     public void mover(){
-        if(checkearObjectivo() && lanzamiento==true){
+        if(checkearObjetivo() && lanzamiento==true){
             girar();
             
         }
@@ -267,7 +300,6 @@ public class Misil extends JPanel{
             misil = new ImageIcon(rotated).getImage();
             this.repaint();
 
-            /*JOptionPane.showMessageDialog(this, misil, null, JOptionPane.PLAIN_MESSAGE, null);*/
         } catch (IOException ex) {
             ex.printStackTrace();
         } 
