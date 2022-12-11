@@ -3,7 +3,7 @@ package GUI;
 import java.awt.Font;
 import javax.swing.event.*;
 import javax.swing.JSlider;
-import proyecto.Ventana;
+import Paneles_Ventanas.Ventana;
 /**
  * Clase VelSlider, que inicializa y maneja los parametros del slider de velocidad.
  * @author Joaquin Avalos

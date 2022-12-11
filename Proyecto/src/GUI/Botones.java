@@ -1,5 +1,7 @@
 package GUI;
 
+import Paneles_Ventanas.PanelPrincipal;
+import Paneles_Ventanas.Ventana;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.*;
@@ -7,7 +9,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.image.BufferedImage;
 import javax.swing.JToggleButton;
-import proyecto.*;
 
 /**
  * Clase Botones, destinada a la inicializacion,atributos y metodos de los botones

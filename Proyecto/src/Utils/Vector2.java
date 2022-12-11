@@ -1,5 +1,9 @@
 package Utils;
-
+/**
+ * Metodo que permite calcular el vector director
+ * @author Matias Medina
+ * @author Joaquin Avalos
+ */
 public class Vector2{
     public float x,y;
     

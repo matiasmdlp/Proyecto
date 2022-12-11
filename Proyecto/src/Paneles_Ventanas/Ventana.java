@@ -1,4 +1,4 @@
-package proyecto;
+package Paneles_Ventanas;
 
 import java.awt.*;
 import javax.swing.*;

@@ -123,7 +123,8 @@ public class Misil extends JPanel{
         angulo=d;
     }
     /**
-     * Metodo 
+     * Metodo que permite el lanzamiento y rotacion inicial del misil
+     * dependiendo de su direccion
      * @param l 
      */
     public void Lanzamiento(boolean l){
@@ -169,7 +170,10 @@ public class Misil extends JPanel{
     }
     
     
-    ////
+    /**
+     * Metodo que permite detectar al objetivo
+     * @return true o false
+     */
     public boolean checkearObjetivo() {
         Vector2 dist = new Vector2((car.getPosX()+50) - this.x, car.getPosY() - this.y);
 
@@ -195,7 +199,9 @@ public class Misil extends JPanel{
             return false;
         } 
     }
-
+    /**
+     * Metodo que permite girar y rotar el misil
+     */
     public void girar() {
         Vector2 dist = new Vector2((car.getPosX()+50) - this.x, car.getPosY() - this.y);
 
@@ -234,7 +240,9 @@ public class Misil extends JPanel{
         }
         Rotar((double)angulo);
     }
-    
+    /**
+     * Metodo que permite el movimiento del misil
+     */
     public void mover(){
         if(checkearObjetivo() && lanzamiento==true){
             girar();
@@ -257,21 +265,30 @@ public class Misil extends JPanel{
             misil = new ImageIcon("Imagenes/Explosion.gif").getImage();
         }
     }
-    /////
-        /**
+    /**
      * Metodo que permite conocer si el misil colisiono con el objetivo.
      */
-    public void Colision(){
-        if( ( this.x<(car.getPosX()+90) && this.x>car.getPosX() && (this.y+50)>(car.getPosY()+20) ) || ( (this.x+50)>(car.getPosX()+10) && (this.x+50)< (car.getPosX()+90) && (this.y+50)>(car.getPosY()+20) ) ){
-            colision=true;
-            car.setColision();            
+    public void Colision() {
+        if ((this.x < (car.getPosX() + 90) && this.x > car.getPosX() && (this.y + 50) > (car.getPosY() + 20)) || ((this.x + 50) > (car.getPosX() + 10) && (this.x + 50) < (car.getPosX() + 90) && (this.y + 50) > (car.getPosY() + 20))) {
+            colision = true;
+            car.setColision();
         }
     }
+    /**
+     * Metodo getter de estado de colision
+     * @return colision, true o false
+     */
     public boolean getColision(){
         return colision;
     }
     
-    
+    /**
+     * Metodo que permite el calculo del angulo de rotacion del misil y 
+     * rota la imagen en el angulo correspondiente
+     * @param image imagen del misil
+     * @param degrees angulo de rotacion
+     * @return 
+     */
     public BufferedImage rotate(BufferedImage image, Double degrees) {
         double radians = Math.toRadians(degrees);
         double sin = Math.abs(Math.sin(radians));
@@ -291,7 +308,11 @@ public class Misil extends JPanel{
         g2d.dispose();
         return rotate;
     }
-    
+    /**
+     * Metodo que pinta la imagen rotada
+     * @see rotate
+     * @param degrees angulo de rotacion
+     */
     public void Rotar(Double degrees){
         try {
             BufferedImage original = ImageIO.read(new File("Imagenes/MisilR.png"));

@@ -1,4 +1,4 @@
-package proyecto;
+package Paneles_Ventanas;
 /**
  * Clase Proyecto: Clase que contiene el metodo main del programa
  * Inicializa la ventana que contiene la simulacion.

@@ -19,7 +19,8 @@ public class Objetivo extends JPanel{
     /** Image almacenar la imagen asociada al objetivo 
      * int x, y para poder modificar la posicion del objetivo
      * int vel guarda la constante de cambio (movimiento)
-     * boolean dir guarda direccion elegida (true=derecha, false=izquierda) 
+     * boolean dir guarda direccion elegida (true=derecha, false=izquierda)
+     * float x0,y0,v0 valores iniciales de posicion y velocidad
      */ 
     private Image car;
     private float x, y;
@@ -54,24 +55,45 @@ public class Objetivo extends JPanel{
         }
          
     }
-    
+    /**
+     * Getter de posicion en x
+     * @return x
+     */
     public float getPosX(){
         return x;
     }
+    /**
+     * Getter de posicion en y
+     * @return y
+     */
     public float getPosY(){
         return y;
     }
-    
+    /**
+     * getter de velocidad
+     * @return velocidad
+     */
     public float getVelocidad(){
         return velocidad;
     }
+    /**
+     * setter de velocidad
+     * @param v velocidad
+     */
     public void setVelocidad(float v){
         velocidad = v;
     }
-    
+    /**
+     * getter de angulo
+     * @return angulo
+     */
     public float getAngulo(){
         return angulo;
     }
+    /**
+     * setter de angulo
+     * @param ang angulo
+     */
     public void setAngulo(float ang){
         angulo = ang;
         if(angulo==180){
@@ -80,7 +102,9 @@ public class Objetivo extends JPanel{
             car = new ImageIcon("Imagenes/AutoR.png").getImage();
         }
     }
-    
+    /**
+     * setter de posiciones iniciales del auto
+     */
     public void setInitPos(){
         if(angulo==0){
             x=x0=0;
@@ -93,7 +117,9 @@ public class Objetivo extends JPanel{
             car = new ImageIcon("Imagenes/AutoL.png").getImage();
         }
     }
-    
+    /**
+     * Metodo que permite la movilizacion del auto
+     */
     public void mover(){
         if(colision==false){
             Vector2 frente = new Vector2((float) Math.cos(Math.toRadians(angulo)), (float) Math.sin(Math.toRadians(angulo)));
@@ -108,7 +134,9 @@ public class Objetivo extends JPanel{
             if(y > 590) y -= frente.y;
         }
     }
-    
+    /**
+     * Metodo que reinicia los valores iniciales del auto
+     */
     public void Reset(){
         /*x=x0;
         y=y0;
@@ -123,7 +151,9 @@ public class Objetivo extends JPanel{
         }
         
     }
-    
+    /**
+     * Metodo que genera valores aleatorios para la velocidad y posicion iniciales
+     */
     public void ValoresRandom(){
         int numero = (int)(Math.random()*(12-4+1)+4);
         velocidad=numero;
@@ -143,11 +173,16 @@ public class Objetivo extends JPanel{
         
         System.out.println(angulo+" "+numero);
     }
-    
+    /**
+     * Metodo setter de colision 
+     */
     public void setColision(){
         colision=true;
     }
-    
+    /**
+     * Metodo para pintar la imagen del auto
+     * @param g 
+     */
     private void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(car, 0, 0, null);

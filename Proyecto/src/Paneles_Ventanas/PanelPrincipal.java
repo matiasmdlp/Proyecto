@@ -1,4 +1,4 @@
-package proyecto;
+package Paneles_Ventanas;
 
 import Items.*;
 import java.awt.event.ActionEvent;
@@ -105,18 +105,31 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         misil.repaint();
         
    }
-    
+    /**
+     * Metodo que inicia el timer de la simulacion.
+     */
     public void Init(){
         timer.start();
         inicializado=true;
     }
+    /**
+     * Metodo getter que devuelve el estado de la simulacion
+     * inicializado true o false
+     * @return inicializado
+     */
     public boolean Inicializado(){
         return  inicializado;
     }
+    /**
+     * Metodo que pausa el timer de la simulacion.
+     */
     public void Initreset(){
         timer.stop();
         inicializado=false;
     }
+    /**
+     * Metodo que reinicia la simulacion.
+     */
     public void Reset(){
         timer.restart();
         timer.stop();
@@ -124,12 +137,24 @@ public class PanelPrincipal extends JPanel implements ActionListener{
         misil.Reset();
         car.Reset();
     }
+    /**
+     * Metodo getter de avion
+     * @return  avion
+     */
     public Avion getAvion(){
         return avion;
     }
+    /**
+     * Metodo getter de misil
+     * @return misil
+     */
     public Misil getMisil(){
         return misil;
     }
+    /**
+     * Metodo getter de objetivo
+     * @return car
+     */
     public Objetivo getObj(){
         return car;
     }

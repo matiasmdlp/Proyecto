@@ -1,9 +1,8 @@
 package Utils;
 
 import java.awt.Point;
-import java.awt.Polygon;
 /** 
- * Clase Angular, busca calcualr angulos desde la horizontal
+ * Clase Angular, busca calcular angulos desde la horizontal
  * @author Matias Medina
  * @author Joaquin Avalos 
  * @version versión 1, 20 de noviembre de 2022
@@ -32,7 +31,7 @@ public class Angular {
     }
 
     /**
-     *
+     * Metodo que calcula el angulo entre dos puntos respecto la horizontal
      * @param uno: punto de referencia
      * @param dos: otro punto
      * @return el ángulo con respecto a la horizontal

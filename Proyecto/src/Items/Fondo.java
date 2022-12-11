@@ -6,7 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
+/**
+ * Clase Fondo, que permite mostrar el fondo de la simulacion.
+ * @author Matias Medina
+ * @author Joaquin Avalos
+ */
 public class Fondo extends JPanel{
     /** Image almacenar la imagen asociada al misil*/ 
     private Image fondo;

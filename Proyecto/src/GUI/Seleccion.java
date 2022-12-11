@@ -1,7 +1,7 @@
 package GUI;
 
 import Items.*;
-import proyecto.PanelPrincipal;
+import Paneles_Ventanas.PanelPrincipal;
 /**
  * Clase Seleccion, permite seleccionar el objetivo a controlar por los botones.
  * @author Joaquin Avalos
