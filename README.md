@@ -27,7 +27,9 @@ Patrón Proxy:  Permite modificar la altura, dirección de inicio, velocidad, ta
 
 ## Casos de Uso
  ![Casos de uso](https://user-images.githubusercontent.com/56138987/203075962-a63e4299-6a54-448e-a240-829b33c2217e.png)
- 
+## Diagrama UML
+![Diagrama UML](https://user-images.githubusercontent.com/107821314/206936130-24f7875f-9fe3-4122-8b18-b3841e71fafe.png)
+
 ## Intefaz
 ![Interfaz](https://user-images.githubusercontent.com/56138987/204390488-ffe379d0-159e-45ce-9f0d-80c6484c6ee2.png)
 
