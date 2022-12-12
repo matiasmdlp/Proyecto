@@ -1,19 +1,12 @@
 
 package Items;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
 /**
  *Test de Clase Misil
@@ -23,6 +16,7 @@ import org.junit.runners.Parameterized.Parameters;
 public class MisilTest {
     private int cuantomemuevo;
     private Misil misil;
+    private Misil misilInic;
     private Objetivo car;
     private Avion avion;
     
@@ -44,6 +38,15 @@ public class MisilTest {
         avion = new Avion();
         car = new Objetivo();
         misil = new Misil(avion,car);
+        misilInic = new Misil(avion, car);
+        misilInic.x=40;
+        misilInic.y=125;
+        misilInic.angulo=0;
+        misilInic.velocidad=10f;
+        misilInic.colision=false;
+        misilInic.deteccion=false;
+        misilInic.lanzamiento=false;
+        misilInic.Rotar((double)misilInic.angulo);
     }
     
     @After
@@ -52,161 +55,58 @@ public class MisilTest {
 
 
     /**
-     * Test of CambiarY method, of class Misil.
+     * Test del metodo CambiarY, de la clase Misil.
+     * Caso Correcto
      */
     @Test
     public void testCambiarYCasoCorrecto() {
         cuantomemuevo = 20;
         System.out.println("CambiarY");
-        misil.setLocation(100, 300);
+        misil.y = 300;
         misil.CambiarY(cuantomemuevo);
-        assertEquals(320, 300 + cuantomemuevo);
-        fail("Fallo en CambiarY");
+        assertEquals(320, misil.getPosY(),0);
     }
+    /**
+     * Test del metodo CambiarY, de la clase Misil.
+     * Caso Limite 1
+     */    
         @Test
     public void testCambiarYCasoLimite() {
         cuantomemuevo = 20;
         System.out.println("CambiarY");
-        misil.setLocation(100, 326);
+        misil.y = 326;
         misil.CambiarY(cuantomemuevo);
-        assertEquals(316, 326 + cuantomemuevo);
-        fail("Fallo en CambiarY");
+        assertEquals(316, misil.getPosY(),0);
     }
+    /**
+     * Test del metodo CambiarY, de la clase Misil.
+     * Caso Limite 2
+     */
     public void testCambiarYCasoLimite2() {
         cuantomemuevo = 20;
         System.out.println("CambiarY");
-        misil.setLocation(100, 35);
+        misil.y = 35;
         misil.CambiarY(cuantomemuevo);
-        assertEquals(45, 35 + cuantomemuevo);
-        fail("Fallo en CambiarY");
+        assertEquals(45, misil.getPosY(),0);
     }
-    
     /**
-     * Test of getVelocidad method, of class Misil.
+     * Test del metodo setInicPos de la clase Misil.
+     * Test en el eje x
      */
     @Test
-    public void testGetVelocidad() {
-        System.out.println("getVelocidad");
-        Misil instance = null;
-        float expResult = 0.0F;
-        float result = instance.getVelocidad();
-        assertEquals(expResult, result, 0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testposicionxSetInitPos(){
+        System.out.println("setInitPos");
+        misil.setInitPos();
+        assertEquals(misilInic.getPosX(), misil.getPosX(),0);
     }
-
     /**
-     * Test of setVelocidad method, of class Misil.
+     * Test del metodo setInicPos de la clase Misil.
+     * Test en el eje y
      */
     @Test
-    public void testSetVelocidad() {
-        System.out.println("setVelocidad");
-        float v = 0.0F;
-        Misil instance = null;
-        instance.setVelocidad(v);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setDireccion method, of class Misil.
-     */
-    @Test
-    public void testSetDireccion() {
-        System.out.println("setDireccion");
-        float d = 0.0F;
-        Misil instance = null;
-        instance.setDireccion(d);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of Lanzamiento method, of class Misil.
-     */
-    @Test
-    public void testLanzamiento() {
-        System.out.println("Lanzamiento");
-        boolean l = false;
-        Misil instance = null;
-        instance.Lanzamiento(l);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of Reset method, of class Misil.
-     */
-    @Test
-    public void testReset() {
-        System.out.println("Reset");
-        Misil instance = null;
-        instance.Reset();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of checkearObjetivo method, of class Misil.
-     */
-    @Test
-    public void testCheckearObjetivo() {
-        System.out.println("checkearObjectivo");
-        Misil instance = null;
-        boolean expResult = false;
-        boolean result = instance.checkearObjetivo();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of girar method, of class Misil.
-     */
-    @Test
-    public void testGirar() {
-        System.out.println("girar");
-        Misil instance = null;
-        instance.girar();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of mover method, of class Misil.
-     */
-    @Test
-    public void testMover() {
-        System.out.println("mover");
-        misil.mover();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of Colision method, of class Misil.
-     */
-    @Test
-    public void testColision() {
-        System.out.println("Colision");
-        Misil instance = null;
-        instance.Colision();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getColision method, of class Misil.
-     */
-    @Test
-    public void testGetColision() {
-        System.out.println("getColision");
-        Misil instance = null;
-        boolean expResult = false;
-        boolean result = instance.getColision();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
+    public void testposicionYSetInitPos(){
+        System.out.println("setInitPos");
+        misil.setInitPos();
+        assertEquals(misilInic.getPosY(), misil.getPosY(),0);
+    }    
 }

@@ -17,8 +17,8 @@ import javax.imageio.ImageIO;
  */
 public class Misil extends JPanel{
     /** Image almacenar la imagen asociada al misil 
-     * int x, y para poder modificar la posicion del objetivo
-     * int vel guarda la constante de cambio (movimiento)
+     * float x, float y para poder modificar la posicion del objetivo
+     * float vel guarda la constante de cambio (movimiento)
      * boolean dir guarda direccion elegida (true=derecha, false=izquierda)
      * boolean v utilizado para asociar su posicion a la del avion
      */ 
