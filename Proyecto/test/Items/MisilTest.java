@@ -70,7 +70,7 @@ public class MisilTest {
      * Test del metodo CambiarY, de la clase Misil.
      * Caso Limite 1
      */    
-        @Test
+    @Test
     public void testCambiarYCasoLimite() {
         cuantomemuevo = 20;
         System.out.println("CambiarY");
@@ -82,12 +82,25 @@ public class MisilTest {
      * Test del metodo CambiarY, de la clase Misil.
      * Caso Limite 2
      */
+    @Test
     public void testCambiarYCasoLimite2() {
         cuantomemuevo = 20;
         System.out.println("CambiarY");
         misil.y = 35;
         misil.CambiarY(cuantomemuevo);
         assertEquals(45, misil.getPosY(),0);
+    }
+    /**
+     * Test del metodo CambiarY, de la clase Misil.
+     * Caso Incorrecto
+     */
+    @Test(expected = java.lang.AssertionError.class)
+    public void testCambiarYCasoIncorrecto() throws java.lang.AssertionError{
+        cuantomemuevo = 20;
+        System.out.println("CambiarY");
+        misil.y = 9;
+        misil.CambiarY(cuantomemuevo);
+        assertEquals(29, misil.getPosY(),0);
     }
     /**
      * Test del metodo setInicPos de la clase Misil.
