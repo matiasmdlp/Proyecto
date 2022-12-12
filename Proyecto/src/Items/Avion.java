@@ -18,7 +18,8 @@ public class Avion extends JPanel{
      * boolean dir guarda direccion elegida (true=derecha, false=izquierda)
      */ 
     private Image avion;
-    private float x, y;
+    float x;
+    float y;
     private float v0;
     private float velocidad= v0 =10f;
     float angulo = 0;
@@ -46,7 +47,7 @@ public class Avion extends JPanel{
     public void setInitPos(){
         if(angulo==0){
             x=0;
-            y= 100;
+            y = 100;
             avion = new ImageIcon("Imagenes/AvionR.png").getImage();
         }
         if(angulo==180){
